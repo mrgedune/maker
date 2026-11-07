@@ -2,15 +2,11 @@
 // numbers its creature runs on. The preset gives the shape; the sliders, 0 to
 // 10 with 5 the preset as made, scale it.
 
-import { PLAIN } from '../presets/plain.js';
-import { RABBIT_HOUSE } from '../presets/rabbit-house.js';
+import { PACKS, DEFAULT_PACK } from '../presets/packs.js';
 
-export const PACKS = { plain: PLAIN, 'rabbit-house': RABBIT_HOUSE };
+export { PACKS, DEFAULT_PACK };
 
-// The pack the official maker uses for new characters. A public copy of the
-// maker sets this to 'plain' and leaves rabbit-house.js out.
-export const DEFAULT_PACK = 'rabbit-house';
-
+// A character tuned with a pack this copy does not have plays with the plain one.
 export const packOf = (fight) => PACKS[fight?.pack] ?? PACKS.plain;
 
 const scale = (v, lo, hi) => lo + ((hi - lo) * v) / 10; // slider 0..10 to a factor

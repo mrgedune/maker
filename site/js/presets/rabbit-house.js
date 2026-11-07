@@ -1,21 +1,6 @@
-// RABBIT HOUSE FIGHT PRESETS: PRIVATE.
-//
-// Tuned from the studio's fight brain (studio-hq docs/action-brain). This
-// file must never go into a public copy of the maker: the open-source build
-// ships plain.js alone. The brain's rules stay in studio-hq; what is here is
-// only the numbers they came to.
-//
-// What the tuning does, by rule:
-//   13/32 the player's best move gets the biggest moment: a parry stops the
-//         world for about a quarter of a second (solo) on a full flash.
-//   32    stops sized to the hit: 0.1 s a hit, 0.17 s heavy, 0.25 s parry.
-//   34    a fight starts at full pitch: no slow walk-up, creatures see you
-//         further and close faster.
-//   5     the calmer fighter reads as stronger: the boss's first stage is
-//         slow and heavy; it speeds up as it cracks.
-//   11/8  each stage changes the terms and the colour of the room.
-//   12    the last move takes the longest and the fight ends in quiet.
-//   36/38 the boss is named on arrival; one line teaches the parry.
+// Rabbit House fight presets: private. The public build (tools/build-site.mjs)
+// leaves this file out; why the numbers are what they are is in
+// docs/rabbit-house-presets.md.
 
 export const RABBIT_HOUSE = {
   name: 'Rabbit House',
