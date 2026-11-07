@@ -52,7 +52,7 @@ export function mount(el, { store, switchTo }) {
     ]);
   }
   function render(force = true) {
-    if (runner) return;
+    if (runner || starting) return;
     page.hidden = false;
     box.hidden = true;
     const sig = signature();
@@ -319,11 +319,26 @@ export function mount(el, { store, switchTo }) {
 
   // ------------------------------------------------------------ the run
 
+  // The lobby is not drawn while the run starts: drawing it would hide the
+  // game's box again before the game is in it.
+  let starting = false;
   async function startRunner(run) {
     stopRunner();
     page.hidden = true;
     box.hidden = false;
+    starting = true;
     fill(box, h('div', { class: 'page' }, h('p', { class: 'muted' }, 'Starting…')));
+    try {
+      await startedRunner(run);
+    } catch (err) {
+      console.error(err);
+      error = `The run could not start: ${err.message}`;
+    } finally {
+      starting = false;
+      if (!runner) render();
+    }
+  }
+  async function startedRunner(run) {
     const { createRunner } = await import('../play/runner.js');
     if (!lobby || lobby.run !== run) return;
     const isHost = lobby.isHost;

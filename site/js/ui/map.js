@@ -188,9 +188,16 @@ export function createMap(canvas, { getDoc, getLevel, mode = 'build' }) {
       }
       if (view.scale >= 22 && !machinesDim) {
         ctx.fillStyle = '#000a';
-        ctx.font = `${Math.round(view.scale * 0.38)}px ui-monospace, monospace`;
         const label = c.spans.length > 1 ? `${c.spans.length}×` : raised ? `${c.spans[0][0]}-${top}` : String(top);
-        ctx.fillText(label, sx(c.x + 0.5), sy(c.y + 0.52));
+        // Smaller type when the label is wider than its cell; none when too small to read.
+        let size = Math.round(view.scale * 0.38);
+        ctx.font = `${size}px ui-monospace, monospace`;
+        const wide = ctx.measureText(label).width;
+        if (wide > view.scale * 0.86) {
+          size = Math.floor((size * view.scale * 0.86) / wide);
+          ctx.font = `${size}px ui-monospace, monospace`;
+        }
+        if (size >= 8) ctx.fillText(label, sx(c.x + 0.5), sy(c.y + 0.52));
       }
     }
     // Level edge.

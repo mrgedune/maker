@@ -84,6 +84,12 @@ main { flex: 1; min-height: 0; position: relative; }
 }
 .toolbar .sep { width: 1px; height: 1.5em; background: var(--line-2); margin: 0 0.2em; }
 .toolbar .grow { flex: 1; }
+/* Build's toolbar stays on one line: the counts give way first. */
+#screen-build .toolbar { flex-wrap: nowrap; }
+#screen-build .toolbar > * { flex-shrink: 0; }
+#screen-build .toolbar .grow { flex-shrink: 1; min-width: 0; }
+#screen-build .toolbar .stats { flex-shrink: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#screen-build .toolbar .where { min-width: 8.5em; font-family: var(--mono); white-space: nowrap; }
 .stage { flex: 1; min-height: 0; position: relative; background: #07080b; }
 .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .stage .hint {

@@ -391,6 +391,10 @@ export async function createRunner(container, opts) {
       if (near) note = near;
     }
     if (session.joining) note = 'Joining the run…';
+    // The end screens and menus speak for themselves.
+    const over = !overlay.hidden;
+    if (over && !session.joining) note = '';
+    els.cross.hidden = over;
     els.note.textContent = note;
     els.tip.textContent = fx.tip && now < fx.tipUntil ? fx.tip : '';
     els.flash.style.opacity = String(Math.min(1, fx.flash) * (reduce() ? 0.25 : 0.55));

@@ -29,7 +29,7 @@ export function mount(el, { store, switchTo }) {
   const stage = h('div', { class: 'stage' }, mapCanvas, viewCanvas, hint);
   const inspector = h('aside', { class: 'side right', 'aria-label': 'Settings' });
   // Where the pointer is on the map, in cells.
-  const where = h('span', { class: 'muted small', 'aria-live': 'off', style: { minWidth: '9em', fontFamily: 'var(--mono)' } });
+  const where = h('span', { class: 'muted small where', 'aria-live': 'off' });
   el.append(bucket, h('div', { class: 'center' }, toolbar, stage), inspector);
 
   const map = createMap(mapCanvas, { getDoc: () => store.doc, getLevel: () => store.levelDoc, mode: 'build' });
@@ -380,7 +380,7 @@ export function mount(el, { store, switchTo }) {
       h('button', { onclick: () => map.fit(), title: 'Show the whole level' }, 'Fit'),
       h('div', { class: 'grow' }),
       mode === 'map' ? where : null,
-      h('span', { class: 'muted small' }, `${stats.parts} parts · ${stats.toys}/${LIMITS.toys} toys · ${stats.wires} wires`),
+      h('span', { class: 'muted small stats', title: `${stats.parts} parts · ${stats.toys}/${LIMITS.toys} toys · ${stats.wires} wires` }, `${stats.parts} parts · ${stats.toys}/${LIMITS.toys} toys · ${stats.wires} wires`),
       h('button', { class: 'primary', onclick: () => switchTo('play', { level: store.level }) }, 'Play this level'),
     );
   }
