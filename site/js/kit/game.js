@@ -319,7 +319,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
     const c = {
       id, char: ch.id, part: partId, x, y, z, vz: 0, yaw: (turn * Math.PI) / 180, scale,
       health: tun.health, max: tun.health, stage: 0, state: mode, t: 0, move: null, target: -1,
-      cool: 30, hit: false, stuck: 0, side: 0, sideT: 0, lastX: x, lastY: y, hitT: -999, seen: false, sees: false, lost: 0, n: state.nextId,
+      cool: 30, hit: false, stuck: 0, side: 0, sideT: 0, lastX: x, lastY: y, hitT: -999, grounded: true, seen: false, sees: false, lost: 0, n: state.nextId,
       body: characterBody(phys.world, x, y, z, scale),
     };
     state.creatures.push(c);
@@ -328,10 +328,14 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
   }
 
   // Moves a character's capsule through the world; returns where it ended up.
-  function moveCharacter(handle, dx, dy, dz, ignore = -1) {
+  // It steps up low ledges only from the ground: stepping in the air would
+  // add a step's height to every jump and carry players over 2 m walls.
+  function moveCharacter(handle, dx, dy, dz, ignore = -1, step = true) {
     const world = phys.world;
     const body = world.getRigidBody(handle);
     const collider = body.collider(0);
+    if (step) phys.controller.enableAutostep(0.55, 0.12, false);
+    else phys.controller.disableAutostep();
     const filter = ignore >= 0 ? (c) => c.parent()?.handle !== ignore : undefined;
     phys.controller.computeColliderMovement(collider, { x: dx, y: dy, z: dz }, undefined, undefined, filter);
     const m = phys.controller.computedMovement();
@@ -536,7 +540,11 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
     rt.held = -1;
     const body = phys.world.getRigidBody(rt.body);
     body.setBodyType(RAPIER.RigidBodyType.Dynamic, true);
-    if (speed > 0) {
+    // E sets it down where it is held, in front; a click throws it.
+    if (speed === 0) {
+      body.setLinvel({ x: 0, y: 0, z: 0 }, true);
+      body.setAngvel({ x: 0, y: 0, z: 0 }, true);
+    } else {
       const cp = cos(p.pitch);
       body.setLinvel({ x: cos(p.yaw) * cp * speed, y: sin(p.yaw) * cp * speed, z: -sin(p.pitch) * speed + 2.5 }, true);
       rt.thrown = state.tick;
@@ -723,7 +731,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
           else rt.on = !rt.on;
           emit({ t: 'use', id: usable.id, x: usable.x, y: usable.y, z: usable.z });
         } else if (p.held) {
-          dropHeld(p, 3);
+          dropHeld(p, 0);
         } else {
           const toy = nearestCarry(p);
           if (toy) {
@@ -762,7 +770,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
 
     p.vz -= PLAYER.gravity * DT;
     const held = p.held ? state.parts[p.held].body : -1;
-    const r = moveCharacter(p.body, dx, dy, p.vz * DT, held);
+    const r = moveCharacter(p.body, dx, dy, p.vz * DT, held, p.grounded && p.vz <= 0);
     if (r.grounded && p.vz < 0) p.vz = 0;
     if (p.vz > 0 && r.moved.z < p.vz * DT * 0.5) p.vz = 0; // a ceiling
     p.grounded = r.grounded;
@@ -1005,8 +1013,9 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
     if (Math.abs(c.kx) < 0.01) c.kx = 0;
     if (Math.abs(c.ky) < 0.01) c.ky = 0;
     c.vz -= PLAYER.gravity * DT;
-    const r = moveCharacter(c.body, dx, dy, c.vz * DT);
+    const r = moveCharacter(c.body, dx, dy, c.vz * DT, -1, c.grounded !== false && c.vz <= 0);
     if (r.grounded && c.vz < 0) c.vz = 0;
+    c.grounded = r.grounded;
     const wanted = hyp2(dx, dy);
     const got = hyp2(r.moved.x, r.moved.y);
     if (c.state === 'chase' && wanted > 1e-6 && got < wanted * 0.15) {

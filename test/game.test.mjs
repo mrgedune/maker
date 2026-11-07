@@ -60,7 +60,8 @@ test('rolling back and stepping again lands on the same state', () => {
 });
 
 test('the world does things: players move, creatures fight, machines run', () => {
-  const { game, seen } = run(1800, 2, 11);
+  // Three wandering bots, so that between them one reaches a toy and a pickup.
+  const { game, seen } = run(1800, 3, 11);
   const s = game.state;
   assert.ok(s.tick === 1800);
   for (const kind of ['swing', 'spawn', 'grab', 'press', 'door', 'pickup']) assert.ok(seen.has(kind), `no ${kind} event; saw ${[...seen].join(' ')}`);
@@ -94,4 +95,29 @@ test('a fight: a player who walks up and swings beats a grunt, and the grunt fig
   }
   for (const kind of ['alert', 'tell', 'strike', 'hit', 'kill', 'won']) assert.ok(seen.has(kind), `no ${kind}; saw ${[...seen].join(' ')}`);
   assert.equal(game.state.phase, 'won');
+});
+
+test('jumping: up a low step and onto a crate, but not over a 2 m wall', () => {
+  const w = newWorld('Walls');
+  const l = w.levels[0];
+  l.size = [16, 8];
+  l.parts.push({ id: 's', type: 'start', x: 1.5, y: 4, z: 0, turn: 0, props: {} });
+  l.blocks.push([3, 3, 'stone', 0, 0.5], [3, 4, 'stone', 0, 0.5]); // a step
+  l.parts.push({ id: 'c', type: 'crate', x: 6.5, y: 4, z: 0, turn: 0, props: { pinned: true } });
+  for (let y = 0; y < 8; y++) l.blocks.push([10, y, 'stone', 0, 2]); // a wall right across
+  const game = createGame({ RAPIER, world: normalize(w), crew: 1, seed: 1 });
+  const p = () => game.state.players[0];
+  let onStep = 0, onCrate = 0, top = 0;
+  for (let t = 0; t < 600; t++) {
+    const x = p().x;
+    // Jump at the crate, then keep jumping at the wall.
+    const jump = (x > 5.2 && x < 5.5) || (x > 9 && t % 20 === 0);
+    game.step([{ move: [0, 1], yaw: 0, pitch: 0, jump }]);
+    if (x > 3.2 && x < 3.8) onStep = Math.max(onStep, p().z);
+    if (Math.abs(x - 6.5) < 0.3) onCrate = Math.max(onCrate, p().z);
+    top = Math.max(top, p().z);
+  }
+  assert.ok(onStep > 0.45, `did not walk up the step (z ${onStep})`);
+  assert.ok(onCrate > 0.85, `did not get onto the crate (z ${onCrate})`);
+  assert.ok(p().x < 10, `went over the wall (x ${p().x}, highest z ${top})`);
 });

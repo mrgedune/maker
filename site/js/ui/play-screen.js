@@ -23,7 +23,9 @@ export function mount(el, { store, switchTo }) {
         startLevel: level ?? 0,
         title: true,
         onExit: () => switchTo('build'),
-        onWin: () => store.playedToEnd.add(hashText(canonical(doc))),
+        onWin: (game, run) => {
+          if (run?.fromStart) store.playedToEnd.add(hashText(canonical(doc)));
+        },
       });
       window.maker.runner = runner;
     } catch (err) {

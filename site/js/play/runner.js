@@ -67,6 +67,8 @@ const TIPS = {
 //   names                            players' names, by slot (co-op)
 //   title: true                      show the title screen first (alone)
 //   onExit(why)                      Back to the maker / lobby
+//   onWin(game, { fromStart })       the last level is finished (alone);
+//                                    fromStart: the run began at level 1
 export async function createRunner(container, opts) {
   const RAPIER = await loadRapier(opts.rapierUrl);
   const settings = { ...loadSettings(), ...(opts.settings ?? {}) };
@@ -117,9 +119,13 @@ export async function createRunner(container, opts) {
   let session;
   let game;
   let seed = opts.seed ?? ((Date.now() & 0xffff) || 1);
-  function newSoloGame(level) {
+  // Whether this run began at the first level: only such a run counts as
+  // played to the end (restarting the level you are on keeps it).
+  let fromStart = false;
+  function newSoloGame(level, keep = false) {
     game = createGame({ RAPIER, world: doc, crew: 1, seed, startLevel: level });
     session = soloSession(game);
+    fromStart = level === 0 || (keep && fromStart);
   }
   if (coop) {
     session = opts.session;
@@ -143,6 +149,7 @@ export async function createRunner(container, opts) {
   let paused = !coop && opts.title !== false;
   let stopped = false;
   let locked = false;
+  let skipMove = false;
   let active = true; // the screen is showing (co-op runs on behind the maker's other screens)
 
   const press = (name) => {
@@ -191,12 +198,20 @@ export async function createRunner(container, opts) {
     if (!running || !active) return;
     // With the pointer locked, every move turns; without it, a held button does.
     if (!locked && !(e.buttons & 1) && !(e.buttons & 2)) return;
+    // Some browsers report one big jump as the lock starts (the pointer's
+    // whole distance from the corner): that is not the hand moving.
+    if (skipMove) {
+      skipMove = false;
+      if (Math.abs(e.movementX) > 60 || Math.abs(e.movementY) > 60) return;
+    }
+    if (Math.abs(e.movementX) > 400 || Math.abs(e.movementY) > 400) return;
     const k = 0.0005 * settings.mouse;
     look.yaw += e.movementX * k;
     look.pitch = Math.max(-1.45, Math.min(1.45, look.pitch + e.movementY * k * (settings.invert ? -1 : 1)));
   }
   function onLockChange() {
     locked = document.pointerLockElement === canvas;
+    skipMove = locked;
     if (!locked && running && !coop && !stopped && !overlayOpen()) openPause();
   }
   window.addEventListener('keydown', onKeyDown);
@@ -453,7 +468,7 @@ export async function createRunner(container, opts) {
       coop ? h('p', { class: 'sub' }, 'The run goes on while this is open.') : null,
       h('div', { class: 'buttons' },
         h('button', { class: 'primary', 'data-action': 'resume', onclick: begin }, 'Back to the game'),
-        !coop ? h('button', { onclick: () => { restart(game.state.level); begin(); } }, 'Restart level') : null,
+        !coop ? h('button', { onclick: () => { restart(game.state.level, true); begin(); } }, 'Restart level') : null,
         h('button', { onclick: () => setOverlay(settingsCard(openPause)) }, 'Settings'),
         opts.onExit ? h('button', { onclick: () => opts.onExit('menu') }, opts.exitLabel ?? (coop ? 'Leave the run' : 'Back to the maker')) : null),
       h('p', { class: 'muted small' }, CONTROLS),
@@ -479,7 +494,7 @@ export async function createRunner(container, opts) {
     else if (s.phase === 'over') setOverlay(h('h1', {}, doc.screens.lose || 'Game over'), h('p', { class: 'sub' }, 'The level starts again.'));
     else if (s.phase === 'won') {
       audio.stopMusic(1.5);
-      opts.onWin?.(game);
+      opts.onWin?.(game, { fromStart });
       setOverlay(
         h('h1', {}, doc.screens.win || 'You win'),
         h('p', { class: 'sub' }, `Score ${s.score}`),
@@ -503,7 +518,7 @@ export async function createRunner(container, opts) {
     acc = 0;
   }
 
-  function restart(level) {
+  function restart(level, keep = false) {
     if (coop) return;
     seed = (seed * 1103515245 + 12345) >>> 0 || 1;
     try {
@@ -511,7 +526,7 @@ export async function createRunner(container, opts) {
     } catch {
       // gone already
     }
-    newSoloGame(level);
+    newSoloGame(level, keep);
     prev = null;
     view.setLevel(game.level);
     shownLevel = game.level;
