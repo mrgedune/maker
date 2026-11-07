@@ -10,7 +10,7 @@ import { h, fill } from '../ui/dom.js';
 
 const DT = 1 / TICK_HZ;
 const SETTINGS_KEY = 'maker.settings';
-export const DEFAULT_SETTINGS = { volume: 0.7, mouse: 5, invert: false, flashes: 'full', detail: 'medium' };
+export const DEFAULT_SETTINGS = { volume: 0.7, music: 0.5, mouse: 5, invert: false, flashes: 'full', detail: 'medium' };
 
 export function loadSettings() {
   try {
@@ -110,6 +110,7 @@ export async function createRunner(container, opts) {
   view.setWorld(doc);
   const audio = createAudio();
   audio.setVolume(settings.volume);
+  audio.setMusicVolume(settings.music);
 
   // ---------------------------------------------------------------- game
 
@@ -412,6 +413,7 @@ export async function createRunner(container, opts) {
     return h('div', { class: 'card' },
       h('h2', {}, 'Settings'),
       row('Volume', h('input', { type: 'range', min: 0, max: 10, value: Math.round(settings.volume * 10), oninput: (e) => { settings.volume = Number(e.target.value) / 10; audio.setVolume(settings.volume); saveSettings(settings); } })),
+      row('Music', h('input', { type: 'range', min: 0, max: 10, value: Math.round(settings.music * 10), oninput: (e) => { settings.music = Number(e.target.value) / 10; audio.setMusicVolume(settings.music); saveSettings(settings); } })),
       row('Mouse speed', h('input', { type: 'range', min: 1, max: 15, value: settings.mouse, oninput: (e) => { settings.mouse = Number(e.target.value); saveSettings(settings); } })),
       h('label', { class: 'field check' }, h('input', { type: 'checkbox', checked: settings.invert, onchange: (e) => { settings.invert = e.target.checked; saveSettings(settings); } }), h('span', {}, 'Invert mouse up and down')),
       h('label', { class: 'field check' }, h('input', { type: 'checkbox', checked: settings.flashes === 'reduced', onchange: (e) => { settings.flashes = e.target.checked ? 'reduced' : 'full'; saveSettings(settings); } }), h('span', {}, 'Reduce flashes and shaking')),
@@ -476,6 +478,7 @@ export async function createRunner(container, opts) {
     if (s.phase === 'clear') setOverlay(h('h1', {}, 'Level clear'), h('p', { class: 'sub' }, `Score ${s.score}`));
     else if (s.phase === 'over') setOverlay(h('h1', {}, doc.screens.lose || 'Game over'), h('p', { class: 'sub' }, 'The level starts again.'));
     else if (s.phase === 'won') {
+      audio.stopMusic(1.5);
       opts.onWin?.(game);
       setOverlay(
         h('h1', {}, doc.screens.win || 'You win'),
@@ -494,6 +497,7 @@ export async function createRunner(container, opts) {
     running = true;
     paused = false;
     audio.unlock();
+    audio.music(game.level.music);
     canvas.focus();
     last = performance.now();
     acc = 0;
@@ -587,6 +591,7 @@ export async function createRunner(container, opts) {
       prev = null;
       const p = me();
       if (p) look.yaw = p.yaw;
+      audio.music(game.level.music);
     }
     if (!active) return;
     if (!overlay.hidden || game.state.phase !== 'play') phaseOverlay();
@@ -685,6 +690,7 @@ export async function createRunner(container, opts) {
         // not locked
       }
       view.dispose();
+      audio.stopMusic(0.05);
       if (!coop) {
         try {
           game.world.free();

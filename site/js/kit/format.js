@@ -9,7 +9,7 @@
 //   coop: { players, dropIn, revive, tougher, friendlyFire },
 //   materials: [{ id, name, glyph, color, glow }],
 //   characters: [{ id, name, role, look, size, fight }],
-//   levels: [{ id, name, size: [w, h], sky, light, floor, blocks, parts, wires }]
+//   levels: [{ id, name, size: [w, h], sky, light, floor, music, blocks, parts, wires }]
 // }
 //
 // blocks: [[x, y, material, bottom, top], ...]; one material per column, any
@@ -37,6 +37,14 @@ export const GLOVES = ['none', 'short', 'opera'];
 export const BOOTS = ['shoe', 'thigh'];
 export const PRESETS = ['brawler', 'duel', 'ambusher', 'boss'];
 export const MOVES = ['swing', 'slam', 'throw', 'charge'];
+// Music a level can play, made on the spot (play/music.js).
+export const MUSIC = [
+  ['none', 'None'],
+  ['pulse', 'Pulse (steady, driving)'],
+  ['dread', 'Dread (slow, low)'],
+  ['chase', 'Chase (fast)'],
+  ['calm', 'Calm (soft)'],
+];
 
 export function defaultLook(role = 'creature') {
   return role === 'player'
@@ -56,7 +64,7 @@ export function newCharacter(id, name, role = 'creature', preset = 'brawler') {
 }
 
 export function newLevel(id, name = 'Level 1', w = 24, h = 24) {
-  return { id, name, size: [w, h], sky: true, light: 6, floor: 'stone', blocks: [], parts: [], wires: [] };
+  return { id, name, size: [w, h], sky: true, light: 6, floor: 'stone', music: 'none', blocks: [], parts: [], wires: [] };
 }
 
 export function newWorld(name = 'My world') {
@@ -179,6 +187,7 @@ function normalizeLevel(level, index, materialIds) {
     sky: typeof l.sky === 'boolean' ? l.sky : true,
     light: clamp(Math.round(l.light), 0, 10, 6),
     floor: materialIds.has(l.floor) ? l.floor : [...materialIds][0],
+    music: MUSIC.some(([id]) => id === l.music) ? l.music : 'none',
     blocks,
     parts,
     wires,

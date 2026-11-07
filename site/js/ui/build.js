@@ -1,7 +1,7 @@
 // Build: paint blocks, place parts from the bucket, change their settings.
 
 import { CATEGORIES, PARTS, PART, LIMITS } from '../kit/catalog.js';
-import { levelStats, newLevel } from '../kit/format.js';
+import { levelStats, newLevel, MUSIC } from '../kit/format.js';
 import { h, settingField, toast, fill } from './dom.js';
 import { createMap } from './map.js';
 import { partName } from '../app.js';
@@ -28,6 +28,8 @@ export function mount(el, { store, switchTo }) {
   const hint = h('div', { class: 'hint' });
   const stage = h('div', { class: 'stage' }, mapCanvas, viewCanvas, hint);
   const inspector = h('aside', { class: 'side right', 'aria-label': 'Settings' });
+  // Where the pointer is on the map, in cells.
+  const where = h('span', { class: 'muted small', 'aria-live': 'off', style: { minWidth: '9em', fontFamily: 'var(--mono)' } });
   el.append(bucket, h('div', { class: 'center' }, toolbar, stage), inspector);
 
   const map = createMap(mapCanvas, { getDoc: () => store.doc, getLevel: () => store.levelDoc, mode: 'build' });
@@ -273,6 +275,8 @@ export function mount(el, { store, switchTo }) {
   mapCanvas.addEventListener('pointermove', (e) => {
     const at = map.toWorld(e.clientX, e.clientY);
     map.state.hover = at;
+    const [w, d] = level().size;
+    where.textContent = at.x >= 0 && at.y >= 0 && at.x < w && at.y < d ? `x ${at.x.toFixed(1)}, y ${at.y.toFixed(1)}` : '';
     if (tool.kind === 'place') map.state.ghost = { type: tool.type, x: snap(at.x), y: snap(at.y), turn: tool.turn, size: PART[tool.type].size };
     if (drag?.kind === 'brush') {
       const key = `${Math.floor(at.x)},${Math.floor(at.y)}`;
@@ -309,6 +313,7 @@ export function mount(el, { store, switchTo }) {
   });
   mapCanvas.addEventListener('pointerleave', () => {
     map.state.hover = null;
+    where.textContent = '';
     map.state.ghost = null;
     map.draw();
   });
@@ -374,6 +379,7 @@ export function mount(el, { store, switchTo }) {
         SNAPS.map(([v, label]) => h('option', { value: v, selected: v === tool.snap }, label))),
       h('button', { onclick: () => map.fit(), title: 'Show the whole level' }, 'Fit'),
       h('div', { class: 'grow' }),
+      mode === 'map' ? where : null,
       h('span', { class: 'muted small' }, `${stats.parts} parts · ${stats.toys}/${LIMITS.toys} toys · ${stats.wires} wires`),
       h('button', { class: 'primary', onclick: () => switchTo('play', { level: store.level }) }, 'Play this level'),
     );
@@ -457,6 +463,7 @@ export function mount(el, { store, switchTo }) {
       settingField({ type: 'check', label: 'Open sky (no ceiling)' }, lv.sky, (v) => set((l) => { l.sky = v; })),
       settingField({ type: 'range', label: 'Daylight', min: 0, max: 10, step: 1 }, lv.light, (v, done = true) => { if (done) set((l) => { l.light = v; }); }),
       settingField({ type: 'select', label: 'Floor' }, lv.floor, (v) => set((l) => { l.floor = v; }), { options: doc.materials.map((m) => [m.id, m.name]) }),
+      settingField({ type: 'select', label: 'Music' }, lv.music, (v) => set((l) => { l.music = v; }), { options: MUSIC }),
       h('h3', {}, 'Levels'),
       h('div', { class: 'list' },
         doc.levels.map((l, i) => h('button', { class: `item ${i === store.level ? 'on' : ''}`, onclick: () => store.setLevel(i) }, `${i + 1}. ${l.name}`))),

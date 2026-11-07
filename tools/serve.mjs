@@ -25,6 +25,28 @@ const TYPES = {
   '.ico': 'image/x-icon',
 };
 
+// The live site's headers for every page (the "/*" block of _headers), so a
+// policy that would break the site breaks it here first. Rooms on this
+// machine (npm run rooms) are let through too.
+async function siteHeaders() {
+  const text = await readFile(join(root, '_headers'), 'utf8').catch(() => '');
+  const out = {};
+  let inAll = false;
+  for (const line of text.split('\n')) {
+    if (!line.trim() || line.trim().startsWith('#')) continue;
+    if (!/^\s/.test(line)) {
+      inAll = line.trim() === '/*';
+      continue;
+    }
+    const at = line.indexOf(':');
+    if (inAll && at > 0) out[line.slice(0, at).trim().toLowerCase()] = line.slice(at + 1).trim();
+  }
+  if (out['content-security-policy'])
+    out['content-security-policy'] = out['content-security-policy'].replace('connect-src', 'connect-src ws://127.0.0.1:* ws://localhost:*');
+  return out;
+}
+const HEADERS = await siteHeaders();
+
 createServer(async (req, res) => {
   try {
     const url = new URL(req.url, 'http://localhost');
@@ -39,6 +61,7 @@ createServer(async (req, res) => {
     if (!info) throw Object.assign(new Error('missing'), { code: 'ENOENT' });
     const body = await readFile(file);
     res.writeHead(200, {
+      ...HEADERS,
       'content-type': TYPES[extname(file)] || 'application/octet-stream',
       'cache-control': 'no-store',
       'x-content-type-options': 'nosniff',

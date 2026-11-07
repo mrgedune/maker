@@ -2,9 +2,15 @@
 // same anywhere and the export stays small. Each game event has a sound; a
 // sound that happens somewhere is quieter further away and panned to its side.
 
+import { createMusic } from './music.js';
+
 export function createAudio() {
   let ctx = null;
   let master = null;
+  let comp = null;
+  let music = null;
+  let musicVolume = 0.5;
+  let wanted = 'none';
   let volume = 0.7;
   let noise = null;
   let quietUntil = 0;
@@ -16,7 +22,7 @@ export function createAudio() {
     ctx = new AC();
     master = ctx.createGain();
     master.gain.value = volume;
-    const comp = ctx.createDynamicsCompressor();
+    comp = ctx.createDynamicsCompressor();
     master.connect(comp).connect(ctx.destination);
     const len = ctx.sampleRate;
     noise = ctx.createBuffer(1, len, ctx.sampleRate);
@@ -120,6 +126,25 @@ export function createAudio() {
     unlock() {
       const c = ensure();
       if (c && c.state === 'suspended') c.resume();
+      if (c && wanted !== 'none') this.music(wanted);
+    },
+    // The level's music ('none' for quiet). It starts once the page has been
+    // clicked (browsers hold sound until then).
+    music(id) {
+      wanted = id ?? 'none';
+      if (!ensure() || ctx.state !== 'running') return;
+      music ??= createMusic(ctx, comp);
+      music.setVolume(musicVolume);
+      if (wanted === 'none') music.stop();
+      else music.play(wanted);
+    },
+    setMusicVolume(v) {
+      musicVolume = v;
+      music?.setVolume(v);
+    },
+    stopMusic(fade) {
+      wanted = 'none';
+      music?.stop(fade);
     },
     setVolume(v) {
       volume = v;
@@ -129,6 +154,8 @@ export function createAudio() {
     quiet(seconds) {
       if (!ensure()) return;
       quietUntil = ctx.currentTime + seconds;
+      wanted = 'none';
+      music?.stop(0.3);
     },
     // Plays the sound for an event, heard from the listener's place.
     play(name, at = null, listener = null) {
