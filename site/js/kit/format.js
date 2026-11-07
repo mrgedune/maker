@@ -7,9 +7,9 @@
 //   format: 'rabbit-house-maker', version: 1,
 //   name, screens: { title, subtitle, win, lose },
 //   coop: { players, dropIn, revive, tougher, friendlyFire },
-//   materials: [{ id, name, glyph, color }],
+//   materials: [{ id, name, glyph, color, glow }],
 //   characters: [{ id, name, role, look, size, fight }],
-//   levels: [{ id, name, size: [w, h], sky, light, blocks, parts, wires }]
+//   levels: [{ id, name, size: [w, h], sky, light, floor, blocks, parts, wires }]
 // }
 //
 // blocks: [[x, y, material, bottom, top], ...]; one material per column, any
@@ -56,7 +56,7 @@ export function newCharacter(id, name, role = 'creature', preset = 'brawler') {
 }
 
 export function newLevel(id, name = 'Level 1', w = 24, h = 24) {
-  return { id, name, size: [w, h], sky: true, light: 6, blocks: [], parts: [], wires: [] };
+  return { id, name, size: [w, h], sky: true, light: 6, floor: 'stone', blocks: [], parts: [], wires: [] };
 }
 
 export function newWorld(name = 'My world') {
@@ -178,6 +178,7 @@ function normalizeLevel(level, index, materialIds) {
     size: [w, h],
     sky: typeof l.sky === 'boolean' ? l.sky : true,
     light: clamp(Math.round(l.light), 0, 10, 6),
+    floor: materialIds.has(l.floor) ? l.floor : [...materialIds][0],
     blocks,
     parts,
     wires,
@@ -194,7 +195,7 @@ export function normalize(input) {
   const materials = [];
   for (const m of Array.isArray(w.materials) ? w.materials : []) {
     if (!m || !idOk(m.id) || materials.some((x) => x.id === m.id) || materials.length >= LIMITS.materials) continue;
-    materials.push({ id: m.id, name: str(m.name, 24, m.id) || m.id, glyph: str(m.glyph, 1, '█') || '█', color: color(m.color, '#8a8f98') });
+    materials.push({ id: m.id, name: str(m.name, 24, m.id) || m.id, glyph: str(m.glyph, 1, '█') || '█', color: color(m.color, '#8a8f98'), glow: m.glow === true });
   }
   if (!materials.length) materials.push(...DEFAULT_MATERIALS.map((m) => ({ ...m })));
   const materialIds = new Set(materials.map((m) => m.id));

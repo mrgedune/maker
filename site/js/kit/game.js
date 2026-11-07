@@ -882,6 +882,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
             c.move = pick;
             c.state = 'tell';
             c.t = Math.max(6, Math.round(tun.tell * st.tell * (pick === 'slam' ? 1.3 : pick === 'charge' ? 1.1 : 1)));
+            c.tellMax = c.t;
             c.target = target.slot;
             emit({ t: 'tell', id: c.id, move: pick, x: c.x, y: c.y, z: c.z + 1.4 * c.scale, ticks: c.t });
             break;

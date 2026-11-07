@@ -275,7 +275,7 @@ export const DEFAULT_MATERIALS = [
   { id: 'sand', name: 'Sand', glyph: '░', color: '#d8c38f' },
   { id: 'glass', name: 'Glass', glyph: '░', color: '#7fb6c9' },
   { id: 'dark', name: 'Dark', glyph: '█', color: '#2b2f38' },
-  { id: 'glow', name: 'Glow', glyph: '█', color: '#ff4d4f' },
+  { id: 'glow', name: 'Glow', glyph: '█', color: '#ff4d4f', glow: true },
   { id: 'white', name: 'White', glyph: '█', color: '#e8e6e3' },
 ];
 
