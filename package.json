@@ -1,0 +1,11 @@
+{
+  "name": "rabbit-house-maker",
+  "private": true,
+  "type": "module",
+  "description": "A block game maker on my own game engine, with co-op play.",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "serve": "node tools/serve.mjs",
+    "rooms": "node tools/rooms-dev.mjs"
+  }
+}
