@@ -51,6 +51,8 @@ const TOY_GRAVITY = -16;
 const SIZE_SCALE = (v) => 0.55 + v * 0.17; // a character's size slider: 5 is 1.4x the figure, about 1.8 cells
 
 const hyp2 = (x, y) => x * x + y * y;
+// A player not in play: gone, or dropping in and not caught up yet.
+const away = (p) => p.out || p.waiting;
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
 export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel = 0 }) {
@@ -278,7 +280,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
       slot, x: 0, y: 0, z: 0, vz: 0, yaw: 0, pitch: 0, grounded: true, body: -1,
       health: PLAYER.health, down: false, out: false, revive: 0, invuln: 0,
       attackT: -1, cool: 0, parryT: 0, blocking: false, held: null, buttons: 0,
-      kx: 0, ky: 0, moving: 0, hitT: -999,
+      kx: 0, ky: 0, moving: 0, hitT: -999, waiting: false,
     };
   }
 
@@ -382,7 +384,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
   // ---------------------------------------------------------------- damage
 
   function hurtPlayer(p, damage, fromX, fromY, kind, creature) {
-    if (p.down || p.out || p.invuln > 0) return 'missed';
+    if (p.down || away(p) || p.invuln > 0) return 'missed';
     const dx = fromX - p.x;
     const dy = fromY - p.y;
     const len = Math.sqrt(hyp2(dx, dy)) || 1;
@@ -471,7 +473,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
       }
     }
     for (const p of state.players) {
-      if (p.out || p.down) continue;
+      if (away(p) || p.down) continue;
       const d2 = hyp2(p.x - x, p.y - y) + (p.z + 0.9 - z) ** 2;
       if (d2 < radius * radius) {
         const d = Math.sqrt(d2);
@@ -615,7 +617,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
     }
     if (doc.coop.friendlyFire)
       for (const q of state.players) {
-        if (q === p || q.out || q.down) continue;
+        if (q === p || away(q) || q.down) continue;
         const dx = q.x - p.x, dy = q.y - p.y;
         const d = Math.sqrt(hyp2(dx, dy)) || 0.01;
         if (d < weapon.reach && (fx * dx + fy * dy) / d > weapon.arc && clearLine(p.x, p.y, chest(p), q.x, q.y, chest(q))) hurtPlayer(q, Math.round(weapon.damage / 2), p.x, p.y, 'swing', null);
@@ -668,6 +670,18 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
       leavePlayer(p);
       return;
     }
+    if (input.wait) {
+      // Dropping in: at a start, still, out of harm's way, until its machine
+      // has caught up with the run.
+      p.waiting = true;
+      p.buttons = bits;
+      return;
+    }
+    if (p.waiting) {
+      p.waiting = false;
+      p.invuln = 120;
+      emit({ t: 'joined', slot: p.slot });
+    }
     p.yaw = input.yaw;
     p.pitch = clamp(input.pitch, -1.45, 1.45);
     if (p.invuln > 0) p.invuln--;
@@ -679,7 +693,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
       // Down: still, waiting for a teammate to stand over you.
       let helped = false;
       for (const q of state.players)
-        if (q !== p && !q.out && !q.down && hyp2(q.x - p.x, q.y - p.y) < PLAYER.reviveRange * PLAYER.reviveRange) helped = true;
+        if (q !== p && !away(q) && !q.down && hyp2(q.x - p.x, q.y - p.y) < PLAYER.reviveRange * PLAYER.reviveRange) helped = true;
       p.revive = helped ? p.revive + 1 : Math.max(0, p.revive - 2);
       if (p.revive >= PLAYER.reviveTicks) {
         p.down = false;
@@ -810,7 +824,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
     let target = null;
     let best = Infinity;
     for (const p of state.players) {
-      if (p.out || p.down) continue;
+      if (away(p) || p.down) continue;
       const d = hyp2(p.x - c.x, p.y - c.y);
       if (d < best) {
         best = d;
@@ -928,7 +942,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
           if (c.move === 'slam') {
             emit({ t: 'slam', id: c.id, x: c.x, y: c.y, z: c.z, radius: 2.8 + c.scale * 0.4 });
             for (const p of state.players) {
-              if (p.out || p.down) continue;
+              if (away(p) || p.down) continue;
               if (hyp2(p.x - c.x, p.y - c.y) < (2.8 + c.scale * 0.4) ** 2 && p.grounded && clearLine(c.x, c.y, c.z + 0.5, p.x, p.y, p.z + 0.5)) hurtPlayer(p, Math.round(tun.damage * 1.3), c.x, c.y, 'slam', c);
             }
             for (const part of level.parts) {
@@ -950,7 +964,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
         if (!c.hit && (c.move === 'swing' || c.move === 'charge')) {
           const reach = c.move === 'swing' ? tun.reach * Math.max(1, c.scale * 0.8) + 0.2 : 1.1 * c.scale;
           for (const p of state.players) {
-            if (p.out || p.down) continue;
+            if (away(p) || p.down) continue;
             const px = p.x - c.x, py = p.y - c.y;
             const d = Math.sqrt(hyp2(px, py)) || 0.01;
             if (d < reach && (fx * px + fy * py) / d > 0.25 && Math.abs(p.z - c.z) < 2.2 * c.scale && clearLine(c.x, c.y, chest(c, c.scale), p.x, p.y, chest(p))) {
@@ -1017,7 +1031,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
       s.z += s.vz * DT;
       let hit = false;
       for (const p of state.players) {
-        if (p.out || p.down) continue;
+        if (away(p) || p.down) continue;
         if (hyp2(p.x - s.x, p.y - s.y) < 0.5 && s.z > p.z && s.z < p.z + 1.9) {
           const creature = state.creatures.find((c) => c.id === s.from) ?? null;
           hurtPlayer(p, s.damage, s.x - s.vx * 0.1, s.y - s.vy * 0.1, 'shot', creature);
@@ -1066,7 +1080,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
 
   function somethingIn(part, who, pad = 0) {
     if (who === 'players' || who === 'anything')
-      for (const p of state.players) if (!p.out && !p.down && inBox(part, p.x, p.y, p.z + 0.1, pad)) return true;
+      for (const p of state.players) if (!away(p) && !p.down && inBox(part, p.x, p.y, p.z + 0.1, pad)) return true;
     if (who === 'creatures' || who === 'anything')
       for (const c of state.creatures) if (c.state !== 'dead' && inBox(part, c.x, c.y, c.z + 0.1, pad)) return true;
     if (who === 'toys' || who === 'anything')
@@ -1253,7 +1267,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
     const fx = cos((part.turn * Math.PI) / 180), fy = sin((part.turn * Math.PI) / 180);
     emit({ t: 'launch', id: part.id, x: part.x, y: part.y, z: part.z });
     for (const p of state.players)
-      if (!p.out && !p.down && inBox(part, p.x, p.y, p.z + 0.1)) {
+      if (!away(p) && !p.down && inBox(part, p.x, p.y, p.z + 0.1)) {
         p.vz = Math.max(p.vz, lift);
         p.kx += fx * strength;
         p.ky += fy * strength;
@@ -1287,7 +1301,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
         const power = 7 + part.props.strength * 1.4;
         let fired = false;
         for (const p of state.players) {
-          if (p.out || p.down || p.vz > 0.1) continue;
+          if (away(p) || p.down || p.vz > 0.1) continue;
           if (Math.abs(p.x - part.x) < part.size[0] / 2 + 0.2 && Math.abs(p.y - part.y) < part.size[1] / 2 + 0.2 && Math.abs(p.z - top) < 0.25) {
             p.vz = power;
             fired = true;
@@ -1332,7 +1346,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
         }
       } else if (def.kind === 'item' && !rt.taken && part.type !== 'exit') {
         for (const p of state.players) {
-          if (p.out || p.down) continue;
+          if (away(p) || p.down) continue;
           if (hyp2(p.x - part.x, p.y - part.y) < 0.9 && part.z - p.z < 1.9 && p.z - part.z < 1.2) {
             if (part.type === 'health' && p.health >= PLAYER.health) continue;
             rt.taken = true;
@@ -1347,7 +1361,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
         }
       } else if (part.type === 'door' && part.props.locked && !rt.unlocked) {
         for (const p of state.players) {
-          if (p.out || p.down) continue;
+          if (away(p) || p.down) continue;
           if (hyp2(p.x - part.x, p.y - part.y) < (Math.max(part.size[0], part.size[1]) / 2 + 0.9) ** 2) {
             if (state.keys > 0) {
               state.keys--;
@@ -1361,7 +1375,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
           }
         }
       } else if (part.type === 'exit') {
-        const standing = state.players.filter((p) => !p.out && !p.down);
+        const standing = state.players.filter((p) => !away(p) && !p.down);
         const inside = standing.filter((p) => inBox(part, p.x, p.y, p.z + 0.1, 0.1));
         if (inside.length && (!part.props.everyone || inside.length === standing.length)) finishLevel();
       }
@@ -1433,7 +1447,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
       p.health -= 25;
       p.vz = 0;
     }
-    const standing = state.players.filter((p) => !p.out);
+    const standing = state.players.filter((p) => !away(p));
     if (standing.length && standing.every((p) => p.down)) gameOver();
     state.messages = state.messages.filter((m) => m.until > state.tick);
     state.tick++;
@@ -1451,6 +1465,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
     p.y = s.y;
     p.z = s.z;
     p.invuln = 120;
+    p.waiting = true;
     return p;
   }
 

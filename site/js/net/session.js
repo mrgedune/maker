@@ -23,6 +23,9 @@
 // world and how the session stands (WELCOME); createSession({ welcome })
 // steps on from there quickly (behind()), says READY once caught up, and the
 // host names a tick from which its inputs count (LIVE).
+//
+// The maker's version: game.save/load/hash in place of Critical Response's
+// snapshot calls, and pledge() for a hidden tab.
 
 import { ARRIVED, WAITING, idleFrom, pack, predict, unpack } from '../kit/input.js';
 import {
@@ -118,6 +121,7 @@ export function createSession({ game, local, send, now = 0, welcome = null, deta
   const theirs = [];
   const pieces = new Map();
   let lastPing = -Infinity;
+  let lastFlush = now;
   let over = null;
   const stats = { rollbacks: 0, resimulated: 0, deepest: 0, stalls: 0, waits: 0, repairs: 0, repairsSent: 0, late: 0, checks: 0 };
 
@@ -383,6 +387,14 @@ export function createSession({ game, local, send, now = 0, welcome = null, deta
     get joining() {
       return inputs[local]?.live === Infinity;
     },
+    // A tab the browser has hidden steps rarely. Its player stands still for
+    // the next `ticks`, said now, so the others need not wait for it.
+    pledge(input, ticks) {
+      const own = inputs[local];
+      if (over || own.live === Infinity || own.left < Infinity) return;
+      const [a, b] = pack({ yaw: input.yaw, pitch: input.pitch });
+      for (let t = game.tick; t < game.tick + ticks; t += 1) take(local, t, a, b);
+    },
     admit({ slot, who }) {
       if (!host || over || game.state.phase !== 'play' || inputs.length >= ROLLBACK.players) return -1;
       if (inputs.some((s) => s.live === Infinity && s.left === Infinity)) return -1;
@@ -440,6 +452,10 @@ export function createSession({ game, local, send, now = 0, welcome = null, deta
     },
     flush(time = 0) {
       if (over) return;
+      // This machine was held up (making its view, a slow frame): what came
+      // in meanwhile has not been read yet, so no one is silent for it.
+      if (time - lastFlush > ROLLBACK.silence / 3) for (const slot of inputs) slot.heard = Math.max(slot.heard, time);
+      lastFlush = time;
       clock = time;
       const own = inputs[local];
       for (let k = 0; k < inputs.length; k += 1) {
@@ -451,7 +467,9 @@ export function createSession({ game, local, send, now = 0, welcome = null, deta
           : Math.max(inputs[k].theirAck + 1, end - ROLLBACK.redundancy + 1, 0);
         const count = Math.min(end - start + 1, missing ? ROLLBACK.catchUp : ROLLBACK.redundancy);
         if (count <= 0) {
-          if (own.live === Infinity) send(k, encodeInput(local, inputs[k].known, 0, NONE, NONE, 0), { reliable: false });
+          // Nothing new of its own (joining, or held up): still say how far
+          // it has theirs, or they would send the same old ticks for ever.
+          send(k, encodeInput(local, inputs[k].known, 0, NONE, NONE, 0), { reliable: false });
           continue;
         }
         const a = new Uint32Array(count);
@@ -475,7 +493,9 @@ export function createSession({ game, local, send, now = 0, welcome = null, deta
       }
       for (let k = 0; k < inputs.length; k += 1) {
         const slot = inputs[k];
-        if (k === local || slot.left < Infinity || time - slot.heard < ROLLBACK.silence) continue;
+        // One dropping in is making its game and catching up: it gets longer.
+        const silence = slot.live === Infinity ? ROLLBACK.silence * 5 : ROLLBACK.silence;
+        if (k === local || slot.left < Infinity || time - slot.heard < silence) continue;
         if (host) session.drop(k);
         else if (k === 0) over = 'The host is gone.';
       }

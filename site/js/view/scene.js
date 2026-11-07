@@ -443,7 +443,7 @@ export function playEntities(game, { me = null, time = 0, prev = null, alpha = 1
   const player = doc.characters.find((c) => c.role === 'player');
   const lerp = (a, b) => (prev ? a + (b - a) * alpha : b);
   for (const p of s.players) {
-    if (p.out || p.slot === me || !player) continue;
+    if (p.out || p.waiting || p.slot === me || !player) continue;
     const q = prev?.players?.[p.slot];
     const x = q ? lerp(q.x, p.x) : p.x;
     const y = q ? lerp(q.y, p.y) : p.y;

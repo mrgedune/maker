@@ -142,6 +142,7 @@ export async function createRunner(container, opts) {
   let paused = !coop && opts.title !== false;
   let stopped = false;
   let locked = false;
+  let active = true; // the screen is showing (co-op runs on behind the maker's other screens)
 
   const press = (name) => {
     held.add(name);
@@ -153,7 +154,7 @@ export async function createRunner(container, opts) {
     ArrowLeft: 'turnL', ArrowRight: 'turnR', ArrowUp: 'lookU', ArrowDown: 'lookD', KeyJ: 'attack', KeyK: 'parry',
   };
   function onKeyDown(e) {
-    if (stopped) return;
+    if (stopped || !active) return;
     if (e.code === 'Escape') {
       if (!coop && running) openPause();
       else if (coop) openPause();
@@ -186,7 +187,7 @@ export async function createRunner(container, opts) {
     if (e.button === 2) held.delete('parry');
   }
   function onMouseMove(e) {
-    if (!running) return;
+    if (!running || !active) return;
     // With the pointer locked, every move turns; without it, a held button does.
     if (!locked && !(e.buttons & 1) && !(e.buttons & 2)) return;
     const k = 0.0005 * settings.mouse;
@@ -339,7 +340,7 @@ export async function createRunner(container, opts) {
     els.health.classList.toggle('low', hp < 35);
     els.healthText.textContent = p.down ? 'Down' : `Health ${hp}`;
     parts.push(hp);
-    const team = s.players.filter((q) => q.slot !== local && !q.out);
+    const team = s.players.filter((q) => q.slot !== local && !q.out && !q.waiting);
     const teamKey = team.map((q) => `${q.slot}:${Math.round(q.health)}:${q.down}`).join(',');
     if (teamKey !== lastHud) {
       lastHud = teamKey;
@@ -452,7 +453,7 @@ export async function createRunner(container, opts) {
         h('button', { class: 'primary', 'data-action': 'resume', onclick: begin }, 'Back to the game'),
         !coop ? h('button', { onclick: () => { restart(game.state.level); begin(); } }, 'Restart level') : null,
         h('button', { onclick: () => setOverlay(settingsCard(openPause)) }, 'Settings'),
-        opts.onExit ? h('button', { onclick: () => opts.onExit('menu') }, coop ? 'Leave the run' : (opts.exitLabel ?? 'Back to the maker')) : null),
+        opts.onExit ? h('button', { onclick: () => opts.onExit('menu') }, opts.exitLabel ?? (coop ? 'Leave the run' : 'Back to the maker')) : null),
       h('p', { class: 'muted small' }, CONTROLS),
     );
   }
@@ -479,9 +480,10 @@ export async function createRunner(container, opts) {
       setOverlay(
         h('h1', {}, doc.screens.win || 'You win'),
         h('p', { class: 'sub' }, `Score ${s.score}`),
+        opts.wonNote ? h('p', { class: 'muted' }, opts.wonNote) : null,
         h('div', { class: 'buttons' },
           !coop ? h('button', { class: 'primary', onclick: () => { restart(0); begin(); } }, 'Play again') : null,
-          opts.onExit ? h('button', { onclick: () => opts.onExit('won') }, coop ? 'Back to the lobby' : (opts.exitLabel ?? 'Back to the maker')) : null),
+          opts.onExit ? h('button', { class: coop ? 'primary' : '', 'data-action': 'won-exit', onclick: () => opts.onExit('won') }, opts.wonLabel ?? (coop ? 'Back to the lobby' : (opts.exitLabel ?? 'Back to the maker'))) : null),
       );
     }
   }
@@ -529,34 +531,56 @@ export async function createRunner(container, opts) {
     return { players, creatures };
   };
 
+  // Steps the game as far as the clock says; in co-op, the session decides
+  // what is stepped. `hidden`: the browser has hidden the tab (it steps from
+  // the messages that come in, and says ahead it stands still).
+  function simulate(now, hidden = false) {
+    const dt = Math.min(hidden ? 1 : 0.25, (now - last) / 1000);
+    last = now;
+    if (!(running || coop)) return dt;
+    onEvents(session.settle());
+    acc += dt * session.pace();
+    if (hidden && coop) session.pledge?.(look, 45);
+    // Dropping in: catch up quickly.
+    const extra = session.behind() > 4 ? Math.min(30, session.behind()) : 0;
+    const most = (hidden ? 70 : 6) + extra;
+    let steps = 0;
+    while ((acc >= DT || steps < extra) && steps < most) {
+      if (session.blocked()) {
+        acc = Math.min(acc, DT);
+        break;
+      }
+      prev = snapPrev();
+      const input = running && !paused && active && !hidden ? sampleInput() : { move: [0, 0], yaw: look.yaw, pitch: look.pitch };
+      onEvents(session.advance(input));
+      acc = Math.max(0, acc - DT);
+      steps++;
+    }
+    if (acc > DT * 8) acc = DT * 8;
+    session.flush(now);
+    if (session.over) {
+      const why = session.over;
+      stopped = true;
+      opts.onExit?.(why);
+    }
+    return dt;
+  }
+
+  // A hidden tab gets no frames: messages coming in step it instead.
+  let lastPump = 0;
+  function pump() {
+    if (stopped || !coop || !document.hidden) return;
+    const now = performance.now();
+    if (now - lastPump < 12) return;
+    lastPump = now;
+    simulate(now, true);
+  }
+
   function frame(now) {
     if (stopped) return;
     raf = requestAnimationFrame(frame);
-    const dt = Math.min(0.25, (now - last) / 1000);
-    last = now;
-    if (running || coop) {
-      onEvents(session.settle());
-      acc += dt * session.pace();
-      // Dropping in: catch up quickly.
-      const extra = session.behind() > 4 ? Math.min(30, session.behind()) : 0;
-      let steps = 0;
-      while ((acc >= DT || steps < extra) && steps < 6 + extra) {
-        if (session.blocked()) {
-          acc = Math.min(acc, DT);
-          break;
-        }
-        prev = snapPrev();
-        const input = running && !paused ? sampleInput() : { move: [0, 0], yaw: look.yaw, pitch: look.pitch };
-        onEvents(session.advance(input));
-        acc = Math.max(0, acc - DT);
-        steps++;
-      }
-      session.flush(now);
-      if (session.over) {
-        opts.onExit?.(session.over);
-        return;
-      }
-    }
+    const dt = simulate(now);
+    if (stopped) return;
     if (game.level !== shownLevel) {
       view.setLevel(game.level);
       shownLevel = game.level;
@@ -564,6 +588,7 @@ export async function createRunner(container, opts) {
       const p = me();
       if (p) look.yaw = p.yaw;
     }
+    if (!active) return;
     if (!overlay.hidden || game.state.phase !== 'play') phaseOverlay();
     // Effects fade.
     fx.flash *= Math.pow(0.5, dt * 60 / Math.max(1, (feel.flashTicks ?? 6) * 0.6));
@@ -628,6 +653,23 @@ export async function createRunner(container, opts) {
     },
     settings,
     begin,
+    pump,
+    // Co-op goes on while the maker shows another screen; input stops.
+    setActive(on) {
+      active = Boolean(on);
+      if (!active) {
+        held.clear();
+        latched.clear();
+        try {
+          document.exitPointerLock?.();
+        } catch {
+          // not locked
+        }
+      } else {
+        last = performance.now();
+        view._w = 0;
+      }
+    },
     stop() {
       stopped = true;
       running = false;

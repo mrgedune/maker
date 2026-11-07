@@ -11,6 +11,7 @@
 // build is refused, so games never mix. If the host leaves, the room closes.
 // Once the run has started, a member who comes in is `late`: it gets the
 // world, says it is ready, and the host's game brings it in (net/session.js).
+// The host's `stop` ends the run and brings everyone back to the lobby.
 //
 // Where it runs supplies `host`:
 //   sockets()            the members' open sockets
@@ -138,9 +139,24 @@ export function message(host, ws, data) {
     announce(host);
   } else if (msg.type === 'start' && me.slot === 0 && !meta.started) {
     const seed = Number.isInteger(msg.seed) ? msg.seed >>> 0 : 1;
-    const level = Number.isInteger(msg.level) && msg.level >= 0 && msg.level < 8 ? msg.level : 0;
+    const level = Number.isInteger(msg.level) && msg.level >= 0 && msg.level < 64 ? msg.level : 0;
     host.keep({ ...meta, started: true, seed, level });
-    tell(host, { type: 'start', seed, level, crew: roster(members(host)) });
+    // The crew is the host and every member ready; one not ready yet (still
+    // getting the world) drops in once it is.
+    const all = members(host);
+    const crew = all.filter((m) => m.slot === 0 || m.ready);
+    for (const m of all) {
+      const late = !crew.includes(m);
+      if (m.late !== late) host.attach(m.ws, { ...host.member(m.ws), late });
+    }
+    tell(host, { type: 'start', seed, level, crew: roster(crew) });
+    announce(host);
+  } else if (msg.type === 'stop' && me.slot === 0 && meta.started) {
+    // The run is over: back to the lobby, everyone in it.
+    host.keep({ ...meta, started: false, seed: null, level: 0 });
+    for (const m of members(host)) host.attach(m.ws, { ...host.member(m.ws), late: false });
+    tell(host, { type: 'stop' });
+    announce(host);
   } else if (msg.type === 'signal') {
     const to = members(host).find((m) => m.slot === msg.to);
     if (to && to.ws !== ws) host.send(to.ws, JSON.stringify({ type: 'signal', from: me.slot, data: msg.data }));

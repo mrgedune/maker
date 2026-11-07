@@ -5,9 +5,9 @@
 // transport.js opens the socket.
 //
 // room.on(type, fn) hears the room: 'members' (the roster), 'start' (seed,
-// level, crew), 'signal' (WebRTC's, for transport.js), 'left' (a member gone),
+// level, crew), 'stop' (the run is over), 'signal' (WebRTC's, for transport.js), 'left' (a member gone),
 // 'closed' (the room is gone: `why`). room.onBytes(fn) hears what the relay
-// carries. room.set({ name, has, ready }), room.start({ seed, level }) (the
+// carries. room.set({ name, has, ready }), room.start({ seed, level }) and room.stop() (the
 // host), room.signal(to, data), room.relay(to, bytes), room.close().
 // room.late: it came in after the run started, to drop into it.
 
@@ -21,8 +21,7 @@ export { BUILD };
 export const ROOM_SERVICE = 'wss://maker-rooms.mrgedune.workers.dev';
 
 // Where the rooms are: the service, or with ?rooms= one running on this
-// machine (npm run rooms), for development and the headless tests. A page
-// served from this machine uses the local one unless told otherwise.
+// machine (npm run rooms), for development and the headless tests.
 export function roomService(params) {
   const asked = params?.get?.('rooms');
   if (asked && /^ws:\/\/(?:127\.0\.0\.1|localhost)(?::\d+)?$/.test(asked)) return asked;
@@ -75,6 +74,9 @@ export function openRoom({ service = ROOM_SERVICE, code = 'new', name = '', vers
     start({ seed, level }) {
       say({ type: 'start', seed, level });
     },
+    stop() {
+      say({ type: 'stop' });
+    },
     signal(to, data) {
       say({ type: 'signal', to, data });
     },
@@ -113,6 +115,7 @@ export function openRoom({ service = ROOM_SERVICE, code = 'new', name = '', vers
         resolve(room);
       } else if (msg.type === 'members') room.members = msg.members;
       else if (msg.type === 'start') room.started = msg;
+      else if (msg.type === 'stop') room.started = null;
       emit(msg.type, msg);
     };
     ws.onclose = (e) => {
