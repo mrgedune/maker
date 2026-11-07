@@ -1,0 +1,9 @@
+{
+  "name": "maker-physics-spike",
+  "private": true,
+  "type": "module",
+  "description": "Throwaway test: can deterministic Rapier run 150 physics toys under co-op rollback?",
+  "dependencies": {
+    "@dimforge/rapier3d-deterministic-compat": "0.21.0"
+  }
+}

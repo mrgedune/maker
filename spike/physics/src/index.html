@@ -1,0 +1,19 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Physics rollback test</title>
+<script type="importmap">
+{ "imports": { "@dimforge/rapier3d-deterministic-compat": "/node_modules/@dimforge/rapier3d-deterministic-compat/dist/rapier.mjs" } }
+</script>
+<pre id="log">loading</pre>
+<script type="module">
+import RAPIER from "@dimforge/rapier3d-deterministic-compat";
+import { runAll } from "./rollback.js";
+const log = (s) => (document.getElementById("log").textContent += "\n" + s);
+await RAPIER.init();
+const ticks = Number(new URLSearchParams(location.search).get("ticks") ?? 3600);
+const res = await runAll(RAPIER, { ticks, log });
+res.where = navigator.userAgent;
+res.rapier = RAPIER.version();
+window.__result = res;
+log("done");
+</script>

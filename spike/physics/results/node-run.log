@@ -1,0 +1,108 @@
+.. reference run: 3600 ticks, 150 toys
+.. peer 0 with rollback
+.. peer 1 with rollback
+.. peer 2 with rollback
+.. peer 3 with rollback
+.. peer 0 again with 2 ticks of input delay
+.. storm: rewind 8 ticks every frame
+.. scale: 150 / 300 / 500 toys
+{
+ "ticks": 3600,
+ "toys": 150,
+ "referenceFinalHash": "959dd68a7a3ce121",
+ "referenceSnapshotHash": "4727abf53811fa42",
+ "secondRunSame": true,
+ "referenceStepMs": {
+  "n": 3600,
+  "mean": 0.558,
+  "p50": 0.39,
+  "p99": 1.921,
+  "max": 72.901
+ },
+ "awakeToysAtChecks": [
+  150,
+  150,
+  150,
+  150,
+  148,
+  146,
+  142,
+  126,
+  124,
+  119,
+  103,
+  100,
+  100,
+  107,
+  106,
+  93,
+  88,
+  89,
+  93,
+  96,
+  87,
+  93,
+  89,
+  89,
+  90,
+  100,
+  94,
+  91,
+  87,
+  82,
+  85,
+  86,
+  84,
+  90,
+  90,
+  92,
+  97,
+  99,
+  92,
+  77,
+  79,
+  76,
+  76,
+  78,
+  76,
+  73,
+  71,
+  71,
+  73,
+  75,
+  76,
+  75,
+  79,
+  75,
+  75,
+  74,
+  74,
+  73,
+  86,
+  87
+ ],
+ "snapshotBytes": 259221,
+ "peersMatchReference": true,
+ "hashMismatches": 0,
+ "storm": {
+  "depth": 8,
+  "frames": 600,
+  "frameMs": {
+   "n": 600,
+   "mean": 11.441,
+   "p50": 10.643,
+   "p99": 21.644,
+   "max": 32.3
+  }
+ },
+ "totalSeconds": 40.7,
+ "where": "node v22.23.4, Intel(R) Xeon(R) Processor @ 2.10GHz, 4 cores",
+ "rapier": "0.21.0",
+ "snapshotGzipBytesAfter5s": 147511,
+ "snapshotBytesAfter5s": 386075
+}
+{"peer":0,"final":"959dd68a7a3ce121","rollbacks":543,"wrong":"910/10800","frame":{"n":3600,"mean":1.365,"p50":0.63,"p99":9.342,"max":13.276},"step":{"n":6230,"mean":0.554,"p50":0.434,"p99":2.042,"max":6.314},"snap":{"n":6230,"mean":0.175,"p50":0.158,"p99":0.406,"max":2.27},"restore":{"n":543,"mean":0.621,"p50":0.535,"p99":3.097,"max":10.865},"replay":{"n":543,"mean":4.843,"p50":5,"p99":6,"max":6}}
+{"peer":1,"final":"959dd68a7a3ce121","rollbacks":579,"wrong":"925/10800","frame":{"n":3600,"mean":1.475,"p50":0.677,"p99":9.721,"max":15.294},"step":{"n":6418,"mean":0.578,"p50":0.467,"p99":1.782,"max":7.576},"snap":{"n":6418,"mean":0.189,"p50":0.169,"p99":0.375,"max":3.519},"restore":{"n":579,"mean":0.596,"p50":0.559,"p99":1.38,"max":1.956},"replay":{"n":579,"mean":4.867,"p50":5,"p99":6,"max":6}}
+{"peer":2,"final":"959dd68a7a3ce121","rollbacks":562,"wrong":"939/10800","frame":{"n":3600,"mean":1.496,"p50":0.669,"p99":10.423,"max":21.481},"step":{"n":6335,"mean":0.595,"p50":0.455,"p99":2.147,"max":7.696},"snap":{"n":6335,"mean":0.194,"p50":0.171,"p99":0.43,"max":4.932},"restore":{"n":562,"mean":0.631,"p50":0.564,"p99":1.685,"max":4.958},"replay":{"n":562,"mean":4.867,"p50":5,"p99":6,"max":6}}
+{"peer":3,"final":"959dd68a7a3ce121","rollbacks":535,"wrong":"891/10800","frame":{"n":3600,"mean":1.421,"p50":0.667,"p99":9.531,"max":15.211},"step":{"n":6201,"mean":0.572,"p50":0.465,"p99":1.905,"max":6.756},"snap":{"n":6201,"mean":0.192,"p50":0.173,"p99":0.354,"max":5.344},"restore":{"n":535,"mean":0.654,"p50":0.586,"p99":1.693,"max":8.142},"replay":{"n":535,"mean":4.862,"p50":5,"p99":6,"max":6}}
+{"peer":0,"final":"959dd68a7a3ce121","rollbacks":543,"wrong":"910/10800","frame":{"n":3600,"mean":1.227,"p50":0.659,"p99":6.914,"max":14.031},"step":{"n":5144,"mean":0.587,"p50":0.443,"p99":2.126,"max":6.793},"snap":{"n":5144,"mean":0.197,"p50":0.176,"p99":0.415,"max":3.318},"restore":{"n":543,"mean":0.665,"p50":0.58,"p99":2.007,"max":5.588},"replay":{"n":543,"mean":2.843,"p50":3,"p99":4,"max":4}}
