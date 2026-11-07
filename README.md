@@ -20,9 +20,16 @@ JavaScript modules, and Node 20 or later runs the tools and the tests.
 
 ## The live site
 
-- `npm run build` writes `dist/`: the site as it goes online, with the plain
-  fight presets only (the Rabbit House presets stay in this repo; see
-  `docs/rabbit-house-presets.md`).
+- `npm run build` writes `dist/`: the site as it goes online.
+  - Plain fight presets only (the Rabbit House presets stay in this repo; see
+    `docs/rabbit-house-presets.md`).
+  - Only the part of the engine the maker uses (`tools/shake.mjs`): of the
+    engine's character models, just the figure and the shape. The other
+    games' models stay out.
+  - No comments in the code or the shaders (`tools/strip-comments.mjs`).
+  - The build stops if anything in it names the private presets, the other
+    games or what is in them (the list is in `tools/build-site.mjs`).
+  - `npm run serve -- 5181 dist` serves it to try before it goes up.
 - `dist/` goes to the Cloudflare Pages project `rabbithouse-maker`
   (maker.rabbithouse.art).
 - The room service is a Cloudflare Worker with a Durable Object per room,
