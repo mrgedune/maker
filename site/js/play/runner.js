@@ -297,7 +297,7 @@ export async function createRunner(container, opts) {
           audio.play('grab', at, listener);
           break;
         case 'down':
-          if (e.slot === local && coop) showTip('down');
+          if (e.slot === local && coop && doc.coop.revive) showTip('down');
           audio.play('down', at, listener);
           break;
         case 'sound':
@@ -368,7 +368,7 @@ export async function createRunner(container, opts) {
     }
     // What E does here.
     let note = '';
-    if (p.down) note = coop ? `Down. A teammate standing by you brings you back. ${p.revive ? Math.round((100 * p.revive) / PLAYER.reviveTicks) + '%' : ''}` : 'Down.';
+    if (p.down) note = !coop ? 'Down.' : doc.coop.revive ? `Down. A teammate standing by you brings you back. ${p.revive ? Math.round((100 * p.revive) / PLAYER.reviveTicks) + '%' : ''}` : 'Down. You are out until the level starts again.';
     else if (p.held) note = 'Left click throws it. E puts it down.';
     else {
       const near = nearThing(p);

@@ -253,6 +253,14 @@ export const PART = Object.freeze(Object.fromEntries(PARTS.map((p) => [p.type, O
 
 // Wiring: which parts send and receive. Senses send; logic does both; doers,
 // doors and lamps receive. A creature part can feed "Creature down".
+// Names for parts in sentences: "Door 2", "Pressure plate 1".
+export function partName(level, part) {
+  if (!part) return 'nothing';
+  const same = level.parts.filter((p) => p.type === part.type);
+  const n = same.indexOf(part) + 1;
+  return `${PART[part.type]?.label ?? part.type} ${n}`;
+}
+
 export const sends = (type) => Boolean(PART[type]?.out);
 export const receives = (type) => Boolean(PART[type]?.in);
 

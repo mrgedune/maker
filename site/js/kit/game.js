@@ -692,7 +692,7 @@ export function createGame({ RAPIER, world: doc, crew = 1, seed = 1, startLevel 
     if (p.down) {
       // Down: still, waiting for a teammate to stand over you.
       let helped = false;
-      for (const q of state.players)
+      if (doc.coop.revive) for (const q of state.players)
         if (q !== p && !away(q) && !q.down && hyp2(q.x - p.x, q.y - p.y) < PLAYER.reviveRange * PLAYER.reviveRange) helped = true;
       p.revive = helped ? p.revive + 1 : Math.max(0, p.revive - 2);
       if (p.revive >= PLAYER.reviveTicks) {

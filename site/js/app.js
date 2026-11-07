@@ -2,7 +2,7 @@
 // to files, and the six screens.
 
 import { normalize, newWorld, canonical, FORMAT } from './kit/format.js';
-import { PART } from './kit/catalog.js';
+import { partName } from './kit/catalog.js';
 import { $, h, toast, openDialog, closeDialog, downloadText, safeName } from './ui/dom.js';
 
 const KEY_INDEX = 'maker.index';
@@ -173,13 +173,8 @@ function loadSaved(id) {
   }
 }
 
-// Names for parts in sentences: "Door 2", "Pressure plate 1".
-export function partName(level, part) {
-  if (!part) return 'nothing';
-  const same = level.parts.filter((p) => p.type === part.type);
-  const n = same.indexOf(part) + 1;
-  return `${PART[part.type].label} ${n}`;
-}
+// Names for parts in sentences: "Door 2", "Pressure plate 1" (kit/catalog.js).
+export { partName };
 
 // ---------------------------------------------------------------- screens
 

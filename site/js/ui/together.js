@@ -48,7 +48,7 @@ export function mount(el, { store, switchTo }) {
     return JSON.stringify([
       lobby.members.map((m) => [m.slot, m.name, m.hasWorld, m.link, m.late, m.ready]),
       lobby.receiving, lobby.canStart, lobby.world?.hash, Boolean(lobby.run?.late),
-      lobby.isHost && lobby.world ? worldHash(store.doc) : '', error, store.doc.levels.length,
+      lobby.isHost && lobby.world ? worldHash(store.doc) : '', error, store.doc.levels.length, JSON.stringify(store.doc.coop),
     ]);
   }
   function render(force = true) {
@@ -81,7 +81,8 @@ export function mount(el, { store, switchTo }) {
         h('p', {}, 'Your friends play the world you have open: ', h('b', {}, store.doc.name), '.'),
         h('div', { class: 'buttons' },
           h('button', { class: 'primary', 'data-action': 'host', disabled: Boolean(busy), onclick: host }, busy === 'host' ? 'Opening a room…' : 'Open a room')),
-        h('p', { class: 'muted small' }, 'You get a four-letter code and a link to send. Up to four players. The world is sent to each player when they join.'),
+        h('p', { class: 'muted small' }, 'You get a four-letter code and a link to send. The world is sent to each player when they join.'),
+        coopSettings(),
       ),
       h('div', { class: 'panel' },
         h('h2', {}, 'Join a room'),
@@ -91,6 +92,26 @@ export function mount(el, { store, switchTo }) {
         h('p', { class: 'muted small' }, 'You play the host\'s world. Your own world in the maker is not changed.'),
       ),
       error ? h('div', { class: 'panel', role: 'alert' }, h('p', {}, error)) : null,
+    );
+  }
+
+  // The world's own co-op settings (kept in the world file).
+  function coopSettings() {
+    const c = store.doc.coop;
+    const set = (key, value) => store.change((doc) => {
+      doc.coop[key] = value;
+    });
+    const check = (key, label) => h('label', { class: 'field check' },
+      h('input', { type: 'checkbox', 'data-coop': key, checked: c[key], onchange: (e) => set(key, e.target.checked) }), h('span', {}, label));
+    return h('div', {},
+      h('h3', {}, 'Co-op settings for this world'),
+      h('label', { class: 'field inline' }, h('span', {}, 'Most players'),
+        h('select', { 'data-coop': 'players', onchange: (e) => set('players', Number(e.target.value)) },
+          [2, 3, 4].map((n) => h('option', { value: n, selected: n === c.players }, String(n))))),
+      check('revive', 'A teammate standing next to a downed player brings them back'),
+      check('tougher', 'Creatures get tougher with more players'),
+      check('friendlyFire', 'Players can hurt each other'),
+      check('dropIn', 'Friends can join a run under way'),
     );
   }
 
@@ -128,8 +149,10 @@ export function mount(el, { store, switchTo }) {
     const waiting = members.filter((m) => !m.hasWorld && m.slot !== 0).length;
     const stale = isHost && lobby.world && worldHash(store.doc) !== lobby.world.hash;
     let startNote = '';
+    const most = (doc ?? store.doc).coop.players;
     if (members.length < 2) startNote = 'You can start alone, or wait for friends to join.';
     if (waiting) startNote = waiting === 1 ? 'One player is still getting the world.' : `${waiting} players are still getting the world.`;
+    if (members.length > most) startNote = `This world is set for at most ${most} players. Change it below, or ask someone to leave.`;
     return h('div', { class: 'cols' },
       h('div', { class: 'panel' },
         h('h2', {}, isHost ? 'Your room' : 'In the room'),
@@ -159,6 +182,7 @@ export function mount(el, { store, switchTo }) {
             startNote ? h('p', { class: 'muted' }, startNote) : null,
             stale ? h('p', { class: 'muted' }, 'Sending your latest changes…') : null,
             h('p', { class: 'muted small' }, 'Changes you make in the maker while the room is open go to everyone before the next start.'),
+            coopSettings(),
           ]
           : [
             lobby.world ? h('p', {}, 'You have the world. Waiting for the host to start.') : h('p', {}, 'Getting the world from the host…'),
@@ -175,7 +199,9 @@ export function mount(el, { store, switchTo }) {
       h('div', { class: 'panel' },
         h('h2', {}, 'The run has started'),
         h('div', { class: 'code' }, lobby.code),
-        h('p', {}, lobby.world ? 'You have the world. The host\'s game lets you in shortly.' : `Getting the world from the host${lobby.receiving.count ? ` (${lobby.receiving.got} of ${lobby.receiving.count})` : ''}…`),
+        h('p', {}, !lobby.world
+          ? `Getting the world from the host${lobby.receiving.count ? ` (${lobby.receiving.got} of ${lobby.receiving.count})` : ''}…`
+          : lobby.world.doc.coop.dropIn ? 'You have the world. The host\'s game lets you in shortly.' : 'This world does not let players join a run under way. You join at the next start.'),
         h('ul', { class: 'players checklist' }, lobby.members.map(memberRow)),
         h('div', { class: 'buttons' }, h('button', { 'data-action': 'leave', onclick: () => leave('You left the room.') }, 'Leave the room')),
       ));

@@ -186,7 +186,7 @@ export async function openLobby({ RAPIER, service, code = 'new', name = '', doc 
 
   // The host lets in members who came late, once they have the world.
   function admitLate() {
-    if (!isHost || !run?.session || !world) return;
+    if (!isHost || !run?.session || !world || !world.doc.coop.dropIn) return;
     for (const m of room.members) {
       if (m.slot === 0 || !m.late || !m.ready || m.has !== world.hash) continue;
       if (run.slots.some((s, i) => s === m.slot && !run.game.state.players[i]?.out)) continue;
@@ -283,7 +283,7 @@ export async function openLobby({ RAPIER, service, code = 'new', name = '', doc 
     },
     // Everyone has the world: the host may start.
     get canStart() {
-      return isHost && !run && Boolean(world) && room.members.every((m) => m.has === world.hash && m.ready);
+      return isHost && !run && Boolean(world) && room.members.length <= world.doc.coop.players && room.members.every((m) => m.has === world.hash && m.ready);
     },
     on(type, fn) {
       if (!handlers.has(type)) handlers.set(type, new Set());
