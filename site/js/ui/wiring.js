@@ -237,6 +237,7 @@ export function mount(el, { store, switchTo }) {
   }
 
   store.on((what) => {
+    if (what === 'screen' || what === 'won') return; // nothing changed in the world
     if (what === 'world' || what === 'level') fit = true;
     if (!visible) return;
     if (what === 'level' || what === 'world') {

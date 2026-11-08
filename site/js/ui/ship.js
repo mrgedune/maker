@@ -40,7 +40,7 @@ export function mount(el, { store, switchTo }) {
       h('div', { class: 'panel' },
         h('h2', {}, 'Share it'),
         h('h3', {}, 'World file'),
-        h('p', { class: 'muted' }, 'Opens again in the maker, on any computer (World menu, Open world file).'),
+        h('p', { class: 'muted' }, 'Opens again in the maker, on any computer (File menu, Open world file).'),
         h('div', { class: 'buttons' }, h('button', { 'data-action': 'save-world', onclick: saveWorld }, 'Save world file')),
         h('h3', {}, 'Web game'),
         h('p', { class: 'muted' }, 'A folder that plays your world in a browser, alone. Put it on any web host; for itch.io, upload the .zip as an HTML game. It needs to be served from the web: opening index.html from your disk shows a blank page.'),

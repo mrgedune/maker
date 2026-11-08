@@ -4,10 +4,13 @@
 import { normalize, newWorld, canonical, FORMAT } from './kit/format.js';
 import { partName } from './kit/catalog.js';
 import { $, h, toast, openDialog, closeDialog, downloadText, safeName } from './ui/dom.js';
+import { EXAMPLES, fetchExample } from './ui/examples.js';
+import { mountTutorial } from './ui/tutorial.js';
 
 const KEY_INDEX = 'maker.index';
 const KEY_CURRENT = 'maker.current';
 const KEY_WORLD = (id) => `maker.world.${id}`;
+const KEY_WELCOMED = 'maker.welcomed';
 const UNDO_MAX = 80;
 
 const storage = {
@@ -60,6 +63,8 @@ export const store = {
   undo: [],
   redo: [],
   dirty: false,
+  saved: true, // the last save went into this browser
+  screen: 'build',
   playedToEnd: new Set(), // canonical hashes of worlds played to a win this visit
   pending: null,
 
@@ -137,8 +142,10 @@ export const store = {
   save() {
     if (!this.id) return;
     const text = canonical(this.doc);
-    if (!storage.set(KEY_WORLD(this.id), text)) {
-      toast('This browser would not keep the world. Save it as a file from the World menu.');
+    const was = this.saved;
+    this.saved = storage.set(KEY_WORLD(this.id), text);
+    if (!this.saved) {
+      if (was) toast('This browser would not keep the world. Save it as a file from the File menu.');
       return;
     }
     const index = readIndex().filter((w) => w.id !== this.id);
@@ -208,9 +215,11 @@ export function switchTo(name, options) {
   if (!screens[name]) return;
   if (active !== name) screens[active]?.hide?.();
   active = name;
+  store.screen = name;
   for (const b of document.querySelectorAll('.tabs button')) b.setAttribute('aria-selected', String(b.dataset.screen === name));
   for (const s of document.querySelectorAll('.screen')) s.hidden = s.dataset.screen !== name;
   screens[name].show?.(options);
+  store.emit('screen');
   try {
     history.replaceState(null, '', `#${name}`);
   } catch {
@@ -218,7 +227,7 @@ export function switchTo(name, options) {
   }
 }
 
-// ---------------------------------------------------------------- world menu
+// ---------------------------------------------------------------- file menu
 
 function openWorldFile() {
   const input = $('#open-file');
@@ -281,10 +290,58 @@ function worldsDialog() {
   );
 }
 
+async function openExample(ex, screen) {
+  try {
+    store.load(await fetchExample(ex.id));
+    closeDialog();
+    switchTo(screen);
+    toast(`Opened a copy of ${ex.name}. It is under My worlds now.`);
+  } catch (err) {
+    toast(err.message || 'That example could not be opened.');
+  }
+}
+
+function examplesDialog() {
+  openDialog(
+    h('h2', {}, 'Examples'),
+    h('p', { class: 'help' }, 'Each one opens as a copy, so change it as much as you like. Your current world stays under My worlds.'),
+    h('div', { class: 'list' },
+      EXAMPLES.map((ex) =>
+        h('div', { class: 'wire-row' },
+          h('p', {}, h('b', {}, ex.name), h('br'), h('span', { class: 'muted small' }, ex.about)),
+          h('div', { class: 'buttons' },
+            h('button', { class: 'primary', onclick: () => openExample(ex, 'play') }, 'Play'),
+            h('button', { onclick: () => openExample(ex, 'build') }, 'Look inside'))))),
+    h('div', { class: 'buttons' }, h('button', { onclick: closeDialog }, 'Close')),
+  );
+}
+
+let tutorial = null;
+function startTutorial() {
+  store.load(starterWorld('Tutorial'));
+  closeDialog();
+  switchTo('build');
+  tutorial.begin();
+}
+
+function welcomeDialog() {
+  storage.set(KEY_WELCOMED, '1');
+  openDialog(
+    h('h2', {}, 'Welcome to the maker'),
+    h('p', {}, 'Build a 3D block game from parts, wire up machines, make creatures that fight, and play it with friends from a link.'),
+    h('p', { class: 'help' }, 'Your worlds are kept in this browser as you work. The File menu has the examples, the tutorial and world files.'),
+    h('div', { class: 'buttons' },
+      h('button', { class: 'primary', onclick: startTutorial }, 'Start the tutorial'),
+      h('button', { onclick: examplesDialog }, 'See the examples'),
+      h('button', { onclick: closeDialog }, 'Start building')),
+  );
+}
+
 // ---------------------------------------------------------------- boot
 
 async function boot() {
   const current = storage.get(KEY_CURRENT);
+  const firstVisit = !current && !storage.get(KEY_WELCOMED);
   if (!(current && loadSaved(current))) store.load(starterWorld());
 
   const nameInput = $('#world-name');
@@ -296,10 +353,22 @@ async function boot() {
       doc.name = v;
     });
   });
+  const saved = $('#saved');
+  let savedTimer = 0;
   store.on((what) => {
     if (what === 'doc' || what === 'world') nameInput.value = store.doc.name;
     $('#undo').disabled = !store.undo.length;
     $('#redo').disabled = !store.redo.length;
+    if (what === 'doc' || what === 'world') {
+      saved.classList.toggle('bad', !store.saved);
+      saved.firstChild.textContent = store.saved ? 'Saved' : 'Not saved';
+      saved.lastChild.textContent = store.saved ? ' in this browser' : ': use File, Save world file';
+      if (store.saved) {
+        saved.classList.add('just');
+        clearTimeout(savedTimer);
+        savedTimer = setTimeout(() => saved.classList.remove('just'), 900);
+      }
+    }
   });
   $('#undo').onclick = () => store.stepUndo(-1);
   $('#redo').onclick = () => store.stepUndo(1);
@@ -322,6 +391,8 @@ async function boot() {
     const what = e.target.closest('button')?.dataset.file;
     fileMenu.hidden = true;
     if (what === 'new') newWorldDialog();
+    else if (what === 'examples') examplesDialog();
+    else if (what === 'tutorial') startTutorial();
     else if (what === 'open') openWorldFile();
     else if (what === 'save') saveWorldFile();
     else if (what === 'worlds') worldsDialog();
@@ -345,12 +416,14 @@ async function boot() {
   });
 
   await mountScreens();
+  tutorial = mountTutorial($('main'), { store, openExamples: examplesDialog });
   const start = location.hash.slice(1);
   switchTo(screens[start] && start !== 'play' ? start : 'build');
   // A room link: straight to Play together.
   const room = new URLSearchParams(location.search).get('room');
   if (room) switchTo('together', { join: room });
   window.maker = { store, switchTo }; // for the browser console and the tests
+  if (firstVisit && !room) welcomeDialog();
 }
 
 boot();

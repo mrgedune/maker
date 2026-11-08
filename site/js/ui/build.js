@@ -639,6 +639,7 @@ export function mount(el, { store, switchTo }) {
   // ---------------------------------------------------------------- store
 
   store.on((what) => {
+    if (what === 'screen' || what === 'won') return; // nothing changed in the world
     if (what === 'world') {
       firstShow = true;
       if (!store.doc.materials.some((m) => m.id === tool.material)) tool.material = store.doc.materials[0].id;

@@ -16,7 +16,19 @@ JavaScript modules, and Node 20 or later runs the tools and the tests.
   use it.
 - `npm test` runs the tests: the game steps the same way from the same
   inputs, rollback lands on the same state, co-op sessions stay in step, the
-  web game export, and the public build.
+  web game export, the public build, and a scripted player wins every
+  example world.
+
+## Examples and the tutorial
+
+- The File menu opens the example worlds (`site/examples/`) as copies, and
+  starts the tutorial (`site/js/ui/tutorial.js`): a new world and a card of
+  steps that tick off as they are done. A first visit offers both.
+- Toy box, Wiring lab and Arena are laid out in `tools/examples.mjs`;
+  `node tools/examples.mjs` writes their files after a change. Vault Run is
+  the world built through the maker's screens, kept as it is.
+- The list in the File menu is `site/js/ui/examples.js`; the tests check it
+  matches the files.
 
 ## The live site
 
@@ -41,7 +53,9 @@ JavaScript modules, and Node 20 or later runs the tools and the tests.
 - `site/` the maker, the player page for exported games, the engine copy
   (`site/engine/`) and Rapier (`site/vendor/rapier/`).
 - `server/rooms/` the room service.
-- `tools/` the dev server, the local room service and the build.
+- `site/examples/` the example worlds.
+- `tools/` the dev server, the local room service, the build and the
+  example layouts.
 - `e2e/pages/` a page for checking the 3D view by hand.
 - `spike/physics/` the test that chose the physics engine (Rapier's
   deterministic build), with its results.

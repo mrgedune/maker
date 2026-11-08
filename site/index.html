@@ -11,7 +11,20 @@
 <body>
 <header class="top">
   <div class="brand">Rabbit House <b>maker</b></div>
+  <div class="menu">
+    <button id="file-button" aria-haspopup="true" aria-expanded="false" aria-controls="file-menu">File</button>
+    <div class="menu-list" id="file-menu" hidden>
+      <button data-file="new">New world…</button>
+      <button data-file="examples">Examples…</button>
+      <button data-file="tutorial">Tutorial</button>
+      <button data-file="worlds">My worlds…</button>
+      <hr>
+      <button data-file="open">Open world file…</button>
+      <button data-file="save">Save world file <span class="key">Ctrl+S</span></button>
+    </div>
+  </div>
   <label class="world-name"><span class="sr">World name</span><input id="world-name" maxlength="40" spellcheck="false"></label>
+  <span id="saved" class="saved" title="Every change is kept in this browser. File, Save world file keeps a copy anywhere else.">Saved<span class="long"> in this browser</span></span>
   <nav class="tabs" role="tablist">
     <button role="tab" data-screen="build" aria-selected="true">Build</button>
     <button role="tab" data-screen="wiring">Wiring</button>
@@ -23,15 +36,6 @@
   <div class="top-actions">
     <button id="undo" title="Undo (Ctrl+Z)">Undo</button>
     <button id="redo" title="Redo (Ctrl+Shift+Z)">Redo</button>
-    <div class="menu">
-      <button id="file-button" aria-haspopup="true" aria-expanded="false">World</button>
-      <div class="menu-list" id="file-menu" hidden>
-        <button data-file="new">New world</button>
-        <button data-file="open">Open world file…</button>
-        <button data-file="save">Save world file</button>
-        <button data-file="worlds">My worlds…</button>
-      </div>
-    </div>
   </div>
 </header>
 

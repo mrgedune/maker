@@ -25,6 +25,7 @@ export function mount(el, { store, switchTo }) {
         onExit: () => switchTo('build'),
         onWin: (game, run) => {
           if (run?.fromStart) store.playedToEnd.add(hashText(canonical(doc)));
+          store.emit('won');
         },
       });
       window.maker.runner = runner;

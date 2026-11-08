@@ -1,0 +1,1463 @@
+{
+ "format": "rabbit-house-maker",
+ "version": 1,
+ "name": "Arena",
+ "screens": {
+  "title": "Arena",
+  "subtitle": "Beat the three, then the champion. Right click parries.",
+  "win": "Arena cleared.",
+  "lose": "Beaten."
+ },
+ "coop": {
+  "players": 4,
+  "dropIn": true,
+  "revive": true,
+  "tougher": true,
+  "friendlyFire": false
+ },
+ "materials": [
+  {
+   "id": "stone",
+   "name": "Stone",
+   "glyph": "█",
+   "color": "#8a8f98",
+   "glow": false
+  },
+  {
+   "id": "brick",
+   "name": "Brick",
+   "glyph": "▓",
+   "color": "#a0543f",
+   "glow": false
+  },
+  {
+   "id": "metal",
+   "name": "Metal",
+   "glyph": "▒",
+   "color": "#7d8fa1",
+   "glow": false
+  },
+  {
+   "id": "wood",
+   "name": "Wood",
+   "glyph": "#",
+   "color": "#9c6b3e",
+   "glow": false
+  },
+  {
+   "id": "grass",
+   "name": "Grass",
+   "glyph": "\"",
+   "color": "#4f9a4a",
+   "glow": false
+  },
+  {
+   "id": "sand",
+   "name": "Sand",
+   "glyph": "░",
+   "color": "#d8c38f",
+   "glow": false
+  },
+  {
+   "id": "glass",
+   "name": "Glass",
+   "glyph": "░",
+   "color": "#7fb6c9",
+   "glow": false
+  },
+  {
+   "id": "dark",
+   "name": "Dark",
+   "glyph": "█",
+   "color": "#2b2f38",
+   "glow": false
+  },
+  {
+   "id": "glow",
+   "name": "Glow",
+   "glyph": "█",
+   "color": "#ff4d4f",
+   "glow": true
+  },
+  {
+   "id": "white",
+   "name": "White",
+   "glyph": "█",
+   "color": "#e8e6e3",
+   "glow": false
+  }
+ ],
+ "characters": [
+  {
+   "id": "player",
+   "name": "Player look",
+   "role": "player",
+   "look": {
+    "hair": "short",
+    "top": "jacket",
+    "coat": 0,
+    "gloves": "short",
+    "boots": "shoe",
+    "held": "sword",
+    "devil": false,
+    "colors": {
+     "outfit": "#3d6fa8",
+     "trousers": "#2b2f38",
+     "skin": "#d9a77c",
+     "hair": "#3a2a1e",
+     "boots": "#1e2128",
+     "gloves": "#2b2f38"
+    }
+   },
+   "size": 5,
+   "fight": {
+    "preset": "brawler",
+    "health": 5,
+    "tell": 5,
+    "parry": 5,
+    "speed": 5,
+    "damage": 5,
+    "moves": {
+     "swing": true,
+     "slam": false,
+     "throw": false,
+     "charge": false
+    },
+    "tougher": true,
+    "pack": "plain"
+   }
+  },
+  {
+   "id": "grunt",
+   "name": "Grunt",
+   "role": "creature",
+   "look": {
+    "hair": "none",
+    "top": "bodysuit",
+    "coat": 0,
+    "gloves": "short",
+    "boots": "shoe",
+    "held": "none",
+    "devil": true,
+    "colors": {
+     "outfit": "#5b2a2a",
+     "trousers": "#2b1d1d",
+     "skin": "#7a5a50",
+     "hair": "#1a1a1a",
+     "boots": "#1a1414",
+     "gloves": "#3a2020"
+    }
+   },
+   "size": 5,
+   "fight": {
+    "preset": "brawler",
+    "health": 5,
+    "tell": 5,
+    "parry": 5,
+    "speed": 5,
+    "damage": 5,
+    "moves": {
+     "swing": true,
+     "slam": false,
+     "throw": false,
+     "charge": false
+    },
+    "tougher": true,
+    "pack": "plain"
+   }
+  },
+  {
+   "id": "lurker",
+   "name": "Lurker",
+   "role": "creature",
+   "look": {
+    "hair": "none",
+    "top": "bodysuit",
+    "coat": 0,
+    "gloves": "short",
+    "boots": "shoe",
+    "held": "none",
+    "devil": true,
+    "colors": {
+     "outfit": "#2a3d5b",
+     "trousers": "#2b1d1d",
+     "skin": "#7a5a50",
+     "hair": "#1a1a1a",
+     "boots": "#1a1414",
+     "gloves": "#3a2020"
+    }
+   },
+   "size": 5,
+   "fight": {
+    "preset": "ambusher",
+    "health": 5,
+    "tell": 5,
+    "parry": 5,
+    "speed": 5,
+    "damage": 5,
+    "moves": {
+     "swing": true,
+     "slam": false,
+     "throw": false,
+     "charge": true
+    },
+    "tougher": true,
+    "pack": "plain"
+   }
+  },
+  {
+   "id": "champion",
+   "name": "Champion",
+   "role": "creature",
+   "look": {
+    "hair": "none",
+    "top": "bodysuit",
+    "coat": 0,
+    "gloves": "short",
+    "boots": "shoe",
+    "held": "none",
+    "devil": true,
+    "colors": {
+     "outfit": "#6b2a2a",
+     "trousers": "#2b1d1d",
+     "skin": "#7a5a50",
+     "hair": "#1a1a1a",
+     "boots": "#1a1414",
+     "gloves": "#3a2020"
+    }
+   },
+   "size": 5,
+   "fight": {
+    "preset": "duel",
+    "health": 5,
+    "tell": 5,
+    "parry": 5,
+    "speed": 5,
+    "damage": 5,
+    "moves": {
+     "swing": true,
+     "slam": false,
+     "throw": false,
+     "charge": false
+    },
+    "tougher": true,
+    "pack": "plain"
+   }
+  }
+ ],
+ "levels": [
+  {
+   "id": "l1",
+   "name": "The pit",
+   "size": [
+    24,
+    24
+   ],
+   "sky": true,
+   "light": 6,
+   "floor": "sand",
+   "music": "chase",
+   "blocks": [
+    [
+     0,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     1,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     2,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     3,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     4,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     5,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     6,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     7,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     8,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     9,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     10,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     11,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     12,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     13,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     14,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     15,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     16,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     17,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     18,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     19,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     20,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     21,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     22,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     0,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     1,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     2,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     3,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     4,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     5,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     6,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     7,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     8,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     9,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     10,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     11,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     12,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     13,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     14,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     15,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     16,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     17,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     18,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     19,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     20,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     21,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     22,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     23,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     1,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     2,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     3,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     4,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     5,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     6,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     7,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     8,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     9,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     10,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     11,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     12,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     13,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     14,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     15,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     16,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     17,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     18,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     19,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     20,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     21,
+     "stone",
+     0,
+     3
+    ],
+    [
+     0,
+     22,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     1,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     2,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     3,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     4,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     5,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     6,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     7,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     8,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     9,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     10,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     11,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     12,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     13,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     14,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     15,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     16,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     17,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     18,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     19,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     20,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     21,
+     "stone",
+     0,
+     3
+    ],
+    [
+     23,
+     22,
+     "stone",
+     0,
+     3
+    ],
+    [
+     6,
+     6,
+     "stone",
+     0,
+     3
+    ],
+    [
+     6,
+     7,
+     "stone",
+     0,
+     3
+    ],
+    [
+     7,
+     6,
+     "stone",
+     0,
+     3
+    ],
+    [
+     7,
+     7,
+     "stone",
+     0,
+     3
+    ],
+    [
+     16,
+     6,
+     "stone",
+     0,
+     3
+    ],
+    [
+     16,
+     7,
+     "stone",
+     0,
+     3
+    ],
+    [
+     17,
+     6,
+     "stone",
+     0,
+     3
+    ],
+    [
+     17,
+     7,
+     "stone",
+     0,
+     3
+    ],
+    [
+     6,
+     13,
+     "stone",
+     0,
+     3
+    ],
+    [
+     6,
+     14,
+     "stone",
+     0,
+     3
+    ],
+    [
+     7,
+     13,
+     "stone",
+     0,
+     3
+    ],
+    [
+     7,
+     14,
+     "stone",
+     0,
+     3
+    ],
+    [
+     16,
+     13,
+     "stone",
+     0,
+     3
+    ],
+    [
+     16,
+     14,
+     "stone",
+     0,
+     3
+    ],
+    [
+     17,
+     13,
+     "stone",
+     0,
+     3
+    ],
+    [
+     17,
+     14,
+     "stone",
+     0,
+     3
+    ],
+    [
+     8,
+     18,
+     "stone",
+     0,
+     3
+    ],
+    [
+     9,
+     18,
+     "stone",
+     0,
+     3
+    ],
+    [
+     10,
+     18,
+     "stone",
+     0,
+     3
+    ],
+    [
+     12,
+     18,
+     "stone",
+     0,
+     3
+    ],
+    [
+     13,
+     18,
+     "stone",
+     0,
+     3
+    ],
+    [
+     14,
+     18,
+     "stone",
+     0,
+     3
+    ],
+    [
+     15,
+     18,
+     "stone",
+     0,
+     3
+    ],
+    [
+     8,
+     19,
+     "stone",
+     0,
+     3
+    ],
+    [
+     8,
+     20,
+     "stone",
+     0,
+     3
+    ],
+    [
+     8,
+     21,
+     "stone",
+     0,
+     3
+    ],
+    [
+     8,
+     22,
+     "stone",
+     0,
+     3
+    ],
+    [
+     15,
+     19,
+     "stone",
+     0,
+     3
+    ],
+    [
+     15,
+     20,
+     "stone",
+     0,
+     3
+    ],
+    [
+     15,
+     21,
+     "stone",
+     0,
+     3
+    ],
+    [
+     15,
+     22,
+     "stone",
+     0,
+     3
+    ]
+   ],
+   "parts": [
+    {
+     "id": "door1",
+     "type": "door",
+     "x": 11.5,
+     "y": 18.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      1,
+      0.30000000000000004,
+      3
+     ],
+     "color": "#5d6b7a",
+     "props": {
+      "stayOpen": false,
+      "locked": false,
+      "startsOpen": false
+     }
+    },
+    {
+     "id": "creature2",
+     "type": "creature",
+     "x": 11.5,
+     "y": 21,
+     "z": 0,
+     "turn": 270,
+     "size": [
+      0.8,
+      0.8,
+      1.8
+     ],
+     "color": "#ff4d4f",
+     "props": {
+      "character": "champion",
+      "waits": false
+     }
+    },
+    {
+     "id": "start3",
+     "type": "start",
+     "x": 11.5,
+     "y": 2.5,
+     "z": 0,
+     "turn": 90,
+     "size": [
+      0.8,
+      0.8,
+      0.1
+     ],
+     "color": "#4cc38a",
+     "props": {}
+    },
+    {
+     "id": "counter4",
+     "type": "counter",
+     "x": 9.5,
+     "y": 18.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "target": 3
+     }
+    },
+    {
+     "id": "creature5",
+     "type": "creature",
+     "x": 9.5,
+     "y": 12,
+     "z": 0,
+     "turn": 270,
+     "size": [
+      0.8,
+      0.8,
+      1.8
+     ],
+     "color": "#ff4d4f",
+     "props": {
+      "character": "grunt",
+      "waits": false
+     }
+    },
+    {
+     "id": "creature6",
+     "type": "creature",
+     "x": 14.5,
+     "y": 12,
+     "z": 0,
+     "turn": 270,
+     "size": [
+      0.8,
+      0.8,
+      1.8
+     ],
+     "color": "#ff4d4f",
+     "props": {
+      "character": "grunt",
+      "waits": false
+     }
+    },
+    {
+     "id": "creature7",
+     "type": "creature",
+     "x": 20.5,
+     "y": 3.5,
+     "z": 0,
+     "turn": 180,
+     "size": [
+      0.8,
+      0.8,
+      1.8
+     ],
+     "color": "#ff4d4f",
+     "props": {
+      "character": "lurker",
+      "waits": true
+     }
+    },
+    {
+     "id": "message8",
+     "type": "message",
+     "x": 12.5,
+     "y": 18.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "text": "The gate is open.",
+      "seconds": 3
+     }
+    },
+    {
+     "id": "sound9",
+     "type": "sound",
+     "x": 13.5,
+     "y": 18.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "sound": "clank"
+     }
+    },
+    {
+     "id": "health10",
+     "type": "health",
+     "x": 2.5,
+     "y": 21.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.35000000000000003
+     ],
+     "color": "#f2f2f2",
+     "props": {
+      "amount": 50
+     }
+    },
+    {
+     "id": "health11",
+     "type": "health",
+     "x": 21.5,
+     "y": 21.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.35000000000000003
+     ],
+     "color": "#f2f2f2",
+     "props": {
+      "amount": 50
+     }
+    },
+    {
+     "id": "down12",
+     "type": "down",
+     "x": 16.5,
+     "y": 1.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#ff4d4f",
+     "props": {
+      "which": "all"
+     }
+    },
+    {
+     "id": "message13",
+     "type": "message",
+     "x": 17.5,
+     "y": 1.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "text": "Arena cleared.",
+      "seconds": 3
+     }
+    },
+    {
+     "id": "delay14",
+     "type": "delay",
+     "x": 18.5,
+     "y": 1.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "seconds": 2
+     }
+    },
+    {
+     "id": "win15",
+     "type": "win",
+     "x": 19.5,
+     "y": 1.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#4cc38a",
+     "props": {}
+    },
+    {
+     "id": "zone16",
+     "type": "zone",
+     "x": 11.5,
+     "y": 2.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      3,
+      3,
+      2
+     ],
+     "color": "#7fd4ff",
+     "props": {
+      "who": "players"
+     }
+    },
+    {
+     "id": "message17",
+     "type": "message",
+     "x": 14.5,
+     "y": 1.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "text": "Beat the three in the pit and the gate opens.",
+      "seconds": 6
+     }
+    }
+   ],
+   "wires": [
+    {
+     "from": "creature5",
+     "to": "counter4"
+    },
+    {
+     "from": "creature6",
+     "to": "counter4"
+    },
+    {
+     "from": "creature7",
+     "to": "counter4"
+    },
+    {
+     "from": "counter4",
+     "to": "door1"
+    },
+    {
+     "from": "counter4",
+     "to": "message8"
+    },
+    {
+     "from": "counter4",
+     "to": "sound9"
+    },
+    {
+     "from": "down12",
+     "to": "message13"
+    },
+    {
+     "from": "down12",
+     "to": "delay14"
+    },
+    {
+     "from": "delay14",
+     "to": "win15"
+    },
+    {
+     "from": "zone16",
+     "to": "message17"
+    }
+   ]
+  }
+ ]
+}
