@@ -1,0 +1,32 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>View check</title>
+<style>html,body{margin:0;background:#000;height:100%}canvas{width:100vw;height:100vh;display:block}</style>
+<canvas id="c"></canvas>
+<script type="module">
+import RAPIER from '../../site/vendor/rapier/rapier.mjs';
+import { createGame } from '../../site/js/kit/game.js';
+import { createView, playEntities, editEntities } from '../../site/js/view/scene.js';
+import { sampleWorld, botInput } from '../../test/sample-world.mjs';
+await RAPIER.init();
+const params = new URLSearchParams(location.search);
+const doc = sampleWorld();
+const canvas = document.getElementById('c');
+const view = createView(canvas, { detail: params.get('detail') || 'medium' });
+view.fit(innerWidth, innerHeight);
+view.setWorld(doc);
+view.setLevel(doc.levels[0]);
+const game = createGame({ RAPIER, world: doc, crew: 2, seed: 4 });
+const ticks = Number(params.get('ticks') || 0);
+for (let t = 0; t < ticks; t++) game.step([botInput(t, 0), botInput(t, 1)]);
+const cam = (params.get('cam') || '12,2,6,1.57,0.45').split(',').map(Number);
+const t0 = performance.now();
+const mode = params.get('mode') || 'play';
+const { entities, lights } = mode === 'edit' ? editEntities(doc, doc.levels[0], { time: 1 }) : playEntities(game, { time: 1 });
+const atmo = params.get('amb') ? { ...JSON.parse(params.get('atmo') || '{}'), ambient: Number(params.get('amb')), exposure: Number(params.get('exp') || 1) } : null;
+if (atmo) { const { atmosphereFor } = await import('../../site/js/view/scene.js'); Object.assign(atmo, { ...atmosphereFor(doc.levels[0]), ...atmo }); }
+view.render({ camera: { x: cam[0], y: cam[1], z: cam[2], yaw: cam[3], pitch: cam[4] }, entities, lights, time: 1, atmosphere: atmo });
+window.frameMs = performance.now() - t0;
+window.ready = true;
+window.entityCount = entities.length;
+</script>

@@ -1,0 +1,1480 @@
+{
+ "format": "rabbit-house-maker",
+ "version": 1,
+ "name": "Wiring lab",
+ "screens": {
+  "title": "Wiring lab",
+  "subtitle": "Three rooms, three machines, one way out.",
+  "win": "Out of the lab.",
+  "lose": "Game over"
+ },
+ "coop": {
+  "players": 4,
+  "dropIn": true,
+  "revive": true,
+  "tougher": true,
+  "friendlyFire": false
+ },
+ "materials": [
+  {
+   "id": "stone",
+   "name": "Stone",
+   "glyph": "█",
+   "color": "#8a8f98",
+   "glow": false
+  },
+  {
+   "id": "brick",
+   "name": "Brick",
+   "glyph": "▓",
+   "color": "#a0543f",
+   "glow": false
+  },
+  {
+   "id": "metal",
+   "name": "Metal",
+   "glyph": "▒",
+   "color": "#7d8fa1",
+   "glow": false
+  },
+  {
+   "id": "wood",
+   "name": "Wood",
+   "glyph": "#",
+   "color": "#9c6b3e",
+   "glow": false
+  },
+  {
+   "id": "grass",
+   "name": "Grass",
+   "glyph": "\"",
+   "color": "#4f9a4a",
+   "glow": false
+  },
+  {
+   "id": "sand",
+   "name": "Sand",
+   "glyph": "░",
+   "color": "#d8c38f",
+   "glow": false
+  },
+  {
+   "id": "glass",
+   "name": "Glass",
+   "glyph": "░",
+   "color": "#7fb6c9",
+   "glow": false
+  },
+  {
+   "id": "dark",
+   "name": "Dark",
+   "glyph": "█",
+   "color": "#2b2f38",
+   "glow": false
+  },
+  {
+   "id": "glow",
+   "name": "Glow",
+   "glyph": "█",
+   "color": "#ff4d4f",
+   "glow": true
+  },
+  {
+   "id": "white",
+   "name": "White",
+   "glyph": "█",
+   "color": "#e8e6e3",
+   "glow": false
+  }
+ ],
+ "characters": [
+  {
+   "id": "player",
+   "name": "Player look",
+   "role": "player",
+   "look": {
+    "hair": "short",
+    "top": "jacket",
+    "coat": 0,
+    "gloves": "short",
+    "boots": "shoe",
+    "held": "sword",
+    "devil": false,
+    "colors": {
+     "outfit": "#3d6fa8",
+     "trousers": "#2b2f38",
+     "skin": "#d9a77c",
+     "hair": "#3a2a1e",
+     "boots": "#1e2128",
+     "gloves": "#2b2f38"
+    }
+   },
+   "size": 5,
+   "fight": {
+    "preset": "brawler",
+    "health": 5,
+    "tell": 5,
+    "parry": 5,
+    "speed": 5,
+    "damage": 5,
+    "moves": {
+     "swing": true,
+     "slam": false,
+     "throw": false,
+     "charge": false
+    },
+    "tougher": true,
+    "pack": "plain"
+   }
+  }
+ ],
+ "levels": [
+  {
+   "id": "l1",
+   "name": "The lab",
+   "size": [
+    30,
+    12
+   ],
+   "sky": false,
+   "light": 6,
+   "floor": "stone",
+   "music": "pulse",
+   "blocks": [
+    [
+     0,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     1,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     2,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     3,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     4,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     5,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     6,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     7,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     8,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     9,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     10,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     11,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     12,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     13,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     14,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     15,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     16,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     17,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     18,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     19,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     20,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     21,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     22,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     23,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     24,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     25,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     26,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     27,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     28,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     29,
+     0,
+     "metal",
+     0,
+     3
+    ],
+    [
+     0,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     1,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     2,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     3,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     4,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     5,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     6,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     7,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     8,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     9,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     10,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     11,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     12,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     13,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     14,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     15,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     16,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     17,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     18,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     19,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     20,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     21,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     22,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     23,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     24,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     25,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     26,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     27,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     28,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     29,
+     11,
+     "metal",
+     0,
+     3
+    ],
+    [
+     0,
+     1,
+     "metal",
+     0,
+     3
+    ],
+    [
+     0,
+     2,
+     "metal",
+     0,
+     3
+    ],
+    [
+     0,
+     3,
+     "metal",
+     0,
+     3
+    ],
+    [
+     0,
+     4,
+     "metal",
+     0,
+     3
+    ],
+    [
+     0,
+     5,
+     "metal",
+     0,
+     3
+    ],
+    [
+     0,
+     6,
+     "metal",
+     0,
+     3
+    ],
+    [
+     0,
+     7,
+     "metal",
+     0,
+     3
+    ],
+    [
+     0,
+     8,
+     "metal",
+     0,
+     3
+    ],
+    [
+     0,
+     9,
+     "metal",
+     0,
+     3
+    ],
+    [
+     0,
+     10,
+     "metal",
+     0,
+     3
+    ],
+    [
+     29,
+     1,
+     "metal",
+     0,
+     3
+    ],
+    [
+     29,
+     2,
+     "metal",
+     0,
+     3
+    ],
+    [
+     29,
+     3,
+     "metal",
+     0,
+     3
+    ],
+    [
+     29,
+     4,
+     "metal",
+     0,
+     3
+    ],
+    [
+     29,
+     5,
+     "metal",
+     0,
+     3
+    ],
+    [
+     29,
+     6,
+     "metal",
+     0,
+     3
+    ],
+    [
+     29,
+     7,
+     "metal",
+     0,
+     3
+    ],
+    [
+     29,
+     8,
+     "metal",
+     0,
+     3
+    ],
+    [
+     29,
+     9,
+     "metal",
+     0,
+     3
+    ],
+    [
+     29,
+     10,
+     "metal",
+     0,
+     3
+    ],
+    [
+     10,
+     1,
+     "metal",
+     0,
+     3
+    ],
+    [
+     10,
+     2,
+     "metal",
+     0,
+     3
+    ],
+    [
+     10,
+     3,
+     "metal",
+     0,
+     3
+    ],
+    [
+     10,
+     4,
+     "metal",
+     0,
+     3
+    ],
+    [
+     10,
+     6,
+     "metal",
+     0,
+     3
+    ],
+    [
+     10,
+     7,
+     "metal",
+     0,
+     3
+    ],
+    [
+     10,
+     8,
+     "metal",
+     0,
+     3
+    ],
+    [
+     10,
+     9,
+     "metal",
+     0,
+     3
+    ],
+    [
+     10,
+     10,
+     "metal",
+     0,
+     3
+    ],
+    [
+     20,
+     1,
+     "metal",
+     0,
+     3
+    ],
+    [
+     20,
+     2,
+     "metal",
+     0,
+     3
+    ],
+    [
+     20,
+     3,
+     "metal",
+     0,
+     3
+    ],
+    [
+     20,
+     4,
+     "metal",
+     0,
+     3
+    ],
+    [
+     20,
+     6,
+     "metal",
+     0,
+     3
+    ],
+    [
+     20,
+     7,
+     "metal",
+     0,
+     3
+    ],
+    [
+     20,
+     8,
+     "metal",
+     0,
+     3
+    ],
+    [
+     20,
+     9,
+     "metal",
+     0,
+     3
+    ],
+    [
+     20,
+     10,
+     "metal",
+     0,
+     3
+    ],
+    [
+     26,
+     3,
+     "metal",
+     0,
+     3
+    ],
+    [
+     27,
+     3,
+     "metal",
+     0,
+     3
+    ],
+    [
+     28,
+     3,
+     "metal",
+     0,
+     3
+    ],
+    [
+     26,
+     7,
+     "metal",
+     0,
+     3
+    ],
+    [
+     27,
+     7,
+     "metal",
+     0,
+     3
+    ],
+    [
+     28,
+     7,
+     "metal",
+     0,
+     3
+    ],
+    [
+     26,
+     4,
+     "metal",
+     0,
+     3
+    ],
+    [
+     26,
+     6,
+     "metal",
+     0,
+     3
+    ]
+   ],
+   "parts": [
+    {
+     "id": "start1",
+     "type": "start",
+     "x": 2.5,
+     "y": 5.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.8,
+      0.8,
+      0.1
+     ],
+     "color": "#4cc38a",
+     "props": {}
+    },
+    {
+     "id": "plate2",
+     "type": "plate",
+     "x": 7.5,
+     "y": 2.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      1,
+      1,
+      0.1
+     ],
+     "color": "#9aa7b3",
+     "props": {
+      "who": "anything"
+     }
+    },
+    {
+     "id": "plate3",
+     "type": "plate",
+     "x": 7.5,
+     "y": 8.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      1,
+      1,
+      0.1
+     ],
+     "color": "#9aa7b3",
+     "props": {
+      "who": "anything"
+     }
+    },
+    {
+     "id": "crate4",
+     "type": "crate",
+     "x": 4.5,
+     "y": 2.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.9,
+      0.9,
+      0.9
+     ],
+     "color": "#c9a46a",
+     "props": {
+      "weight": 4,
+      "bounce": 1,
+      "pinned": false,
+      "carry": true
+     }
+    },
+    {
+     "id": "crate5",
+     "type": "crate",
+     "x": 4.5,
+     "y": 8.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.9,
+      0.9,
+      0.9
+     ],
+     "color": "#c9a46a",
+     "props": {
+      "weight": 4,
+      "bounce": 1,
+      "pinned": false,
+      "carry": true
+     }
+    },
+    {
+     "id": "and6",
+     "type": "and",
+     "x": 10.5,
+     "y": 3.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {}
+    },
+    {
+     "id": "door7",
+     "type": "door",
+     "x": 10.5,
+     "y": 5.5,
+     "z": 0,
+     "turn": 90,
+     "size": [
+      1,
+      0.30000000000000004,
+      3
+     ],
+     "color": "#5d6b7a",
+     "props": {
+      "stayOpen": false,
+      "locked": false,
+      "startsOpen": false
+     }
+    },
+    {
+     "id": "lamp8",
+     "type": "lamp",
+     "x": 8.75,
+     "y": 2.5,
+     "z": 2.375,
+     "turn": 0,
+     "size": [
+      0.30000000000000004,
+      0.30000000000000004,
+      0.30000000000000004
+     ],
+     "color": "#ffd9a0",
+     "props": {
+      "brightness": 6,
+      "reach": 3
+     }
+    },
+    {
+     "id": "lamp9",
+     "type": "lamp",
+     "x": 8.75,
+     "y": 8.5,
+     "z": 2.375,
+     "turn": 0,
+     "size": [
+      0.30000000000000004,
+      0.30000000000000004,
+      0.30000000000000004
+     ],
+     "color": "#ffd9a0",
+     "props": {
+      "brightness": 6,
+      "reach": 3
+     }
+    },
+    {
+     "id": "zone10",
+     "type": "zone",
+     "x": 3,
+     "y": 5.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      3,
+      3,
+      2
+     ],
+     "color": "#7fd4ff",
+     "props": {
+      "who": "players"
+     }
+    },
+    {
+     "id": "message11",
+     "type": "message",
+     "x": 1.5,
+     "y": 3.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "text": "Both plates must be pressed to open the door. Crates press them too.",
+      "seconds": 6
+     }
+    },
+    {
+     "id": "button12",
+     "type": "button",
+     "x": 15.5,
+     "y": 10.75,
+     "z": 1,
+     "turn": 0,
+     "size": [
+      0.35000000000000003,
+      0.35000000000000003,
+      0.35000000000000003
+     ],
+     "color": "#ff4d4f",
+     "props": {
+      "hold": 4
+     }
+    },
+    {
+     "id": "delay13",
+     "type": "delay",
+     "x": 20.5,
+     "y": 3.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "seconds": 0.5
+     }
+    },
+    {
+     "id": "door14",
+     "type": "door",
+     "x": 20.5,
+     "y": 5.5,
+     "z": 0,
+     "turn": 90,
+     "size": [
+      1,
+      0.30000000000000004,
+      3
+     ],
+     "color": "#5d6b7a",
+     "props": {
+      "stayOpen": false,
+      "locked": false,
+      "startsOpen": false
+     }
+    },
+    {
+     "id": "sound15",
+     "type": "sound",
+     "x": 16.5,
+     "y": 10.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "sound": "clank"
+     }
+    },
+    {
+     "id": "zone16",
+     "type": "zone",
+     "x": 12,
+     "y": 5.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      2,
+      3,
+      2
+     ],
+     "color": "#7fd4ff",
+     "props": {
+      "who": "players"
+     }
+    },
+    {
+     "id": "message17",
+     "type": "message",
+     "x": 12,
+     "y": 3.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "text": "The button opens the far door for a few seconds. Run.",
+      "seconds": 5
+     }
+    },
+    {
+     "id": "counter18",
+     "type": "counter",
+     "x": 26.5,
+     "y": 3.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "target": 3
+     }
+    },
+    {
+     "id": "sound19",
+     "type": "sound",
+     "x": 23.5,
+     "y": 10.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "sound": "chime"
+     }
+    },
+    {
+     "id": "button20",
+     "type": "button",
+     "x": 22.5,
+     "y": 1.25,
+     "z": 1,
+     "turn": 0,
+     "size": [
+      0.35000000000000003,
+      0.35000000000000003,
+      0.35000000000000003
+     ],
+     "color": "#ff4d4f",
+     "props": {
+      "hold": 0.5
+     }
+    },
+    {
+     "id": "button21",
+     "type": "button",
+     "x": 22.5,
+     "y": 10.75,
+     "z": 1,
+     "turn": 0,
+     "size": [
+      0.35000000000000003,
+      0.35000000000000003,
+      0.35000000000000003
+     ],
+     "color": "#ff4d4f",
+     "props": {
+      "hold": 0.5
+     }
+    },
+    {
+     "id": "button22",
+     "type": "button",
+     "x": 24.5,
+     "y": 10.75,
+     "z": 1,
+     "turn": 0,
+     "size": [
+      0.35000000000000003,
+      0.35000000000000003,
+      0.35000000000000003
+     ],
+     "color": "#ff4d4f",
+     "props": {
+      "hold": 0.5
+     }
+    },
+    {
+     "id": "door23",
+     "type": "door",
+     "x": 26.5,
+     "y": 5.5,
+     "z": 0,
+     "turn": 90,
+     "size": [
+      1,
+      0.30000000000000004,
+      3
+     ],
+     "color": "#5d6b7a",
+     "props": {
+      "stayOpen": false,
+      "locked": false,
+      "startsOpen": false
+     }
+    },
+    {
+     "id": "exit24",
+     "type": "exit",
+     "x": 27.5,
+     "y": 5.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      1,
+      1,
+      0.1
+     ],
+     "color": "#4cc38a",
+     "props": {
+      "everyone": false
+     }
+    },
+    {
+     "id": "timer25",
+     "type": "timer",
+     "x": 27.5,
+     "y": 3.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "every": 0.5
+     }
+    },
+    {
+     "id": "toggle26",
+     "type": "toggle",
+     "x": 28.5,
+     "y": 3.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "startsOn": false
+     }
+    },
+    {
+     "id": "lamp27",
+     "type": "lamp",
+     "x": 27.5,
+     "y": 5.5,
+     "z": 2.625,
+     "turn": 0,
+     "size": [
+      0.30000000000000004,
+      0.30000000000000004,
+      0.30000000000000004
+     ],
+     "color": "#ffd9a0",
+     "props": {
+      "brightness": 8,
+      "reach": 4
+     }
+    },
+    {
+     "id": "zone28",
+     "type": "zone",
+     "x": 22,
+     "y": 5.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      2,
+      3,
+      2
+     ],
+     "color": "#7fd4ff",
+     "props": {
+      "who": "players"
+     }
+    },
+    {
+     "id": "message29",
+     "type": "message",
+     "x": 22,
+     "y": 3.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "text": "Three button presses open the last door.",
+      "seconds": 5
+     }
+    }
+   ],
+   "wires": [
+    {
+     "from": "plate2",
+     "to": "and6"
+    },
+    {
+     "from": "plate3",
+     "to": "and6"
+    },
+    {
+     "from": "and6",
+     "to": "door7"
+    },
+    {
+     "from": "plate2",
+     "to": "lamp8"
+    },
+    {
+     "from": "plate3",
+     "to": "lamp9"
+    },
+    {
+     "from": "zone10",
+     "to": "message11"
+    },
+    {
+     "from": "button12",
+     "to": "delay13"
+    },
+    {
+     "from": "delay13",
+     "to": "door14"
+    },
+    {
+     "from": "button12",
+     "to": "sound15"
+    },
+    {
+     "from": "zone16",
+     "to": "message17"
+    },
+    {
+     "from": "button20",
+     "to": "counter18"
+    },
+    {
+     "from": "button20",
+     "to": "sound19"
+    },
+    {
+     "from": "button21",
+     "to": "counter18"
+    },
+    {
+     "from": "button21",
+     "to": "sound19"
+    },
+    {
+     "from": "button22",
+     "to": "counter18"
+    },
+    {
+     "from": "button22",
+     "to": "sound19"
+    },
+    {
+     "from": "counter18",
+     "to": "door23"
+    },
+    {
+     "from": "timer25",
+     "to": "toggle26"
+    },
+    {
+     "from": "toggle26",
+     "to": "lamp27"
+    },
+    {
+     "from": "zone28",
+     "to": "message29"
+    }
+   ]
+  }
+ ]
+}

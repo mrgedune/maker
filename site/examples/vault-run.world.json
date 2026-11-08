@@ -1,0 +1,2593 @@
+{
+ "format": "rabbit-house-maker",
+ "version": 1,
+ "name": "Vault Run",
+ "screens": {
+  "title": "Vault Run",
+  "subtitle": "Get the key, open the vault, beat the Keeper.",
+  "win": "The vault is yours.",
+  "lose": "Caught."
+ },
+ "coop": {
+  "players": 4,
+  "dropIn": true,
+  "revive": true,
+  "tougher": true,
+  "friendlyFire": false
+ },
+ "materials": [
+  {
+   "id": "stone",
+   "name": "Stone",
+   "glyph": "█",
+   "color": "#8a8f98",
+   "glow": false
+  },
+  {
+   "id": "brick",
+   "name": "Brick",
+   "glyph": "▓",
+   "color": "#a0543f",
+   "glow": false
+  },
+  {
+   "id": "metal",
+   "name": "Metal",
+   "glyph": "▒",
+   "color": "#7d8fa1",
+   "glow": false
+  },
+  {
+   "id": "wood",
+   "name": "Wood",
+   "glyph": "#",
+   "color": "#9c6b3e",
+   "glow": false
+  },
+  {
+   "id": "grass",
+   "name": "Grass",
+   "glyph": "\"",
+   "color": "#4f9a4a",
+   "glow": false
+  },
+  {
+   "id": "sand",
+   "name": "Sand",
+   "glyph": "░",
+   "color": "#d8c38f",
+   "glow": false
+  },
+  {
+   "id": "glass",
+   "name": "Glass",
+   "glyph": "░",
+   "color": "#7fb6c9",
+   "glow": false
+  },
+  {
+   "id": "dark",
+   "name": "Dark",
+   "glyph": "█",
+   "color": "#2b2f38",
+   "glow": false
+  },
+  {
+   "id": "glow",
+   "name": "Glow",
+   "glyph": "█",
+   "color": "#ff4d4f",
+   "glow": true
+  },
+  {
+   "id": "white",
+   "name": "White",
+   "glyph": "█",
+   "color": "#e8e6e3",
+   "glow": false
+  }
+ ],
+ "characters": [
+  {
+   "id": "player",
+   "name": "Player look",
+   "role": "player",
+   "look": {
+    "hair": "swept",
+    "top": "jacket",
+    "coat": 0.6,
+    "gloves": "short",
+    "boots": "shoe",
+    "held": "sword",
+    "devil": false,
+    "colors": {
+     "outfit": "#3d6fa8",
+     "trousers": "#2b2f38",
+     "skin": "#d9a77c",
+     "hair": "#3a2a1e",
+     "boots": "#1e2128",
+     "gloves": "#2b2f38"
+    }
+   },
+   "size": 5,
+   "fight": {
+    "preset": "brawler",
+    "health": 5,
+    "tell": 5,
+    "parry": 5,
+    "speed": 5,
+    "damage": 5,
+    "moves": {
+     "swing": true,
+     "slam": false,
+     "throw": false,
+     "charge": false
+    },
+    "tougher": true,
+    "pack": "plain"
+   }
+  },
+  {
+   "id": "grunt",
+   "name": "Guard",
+   "role": "creature",
+   "look": {
+    "hair": "none",
+    "top": "bodysuit",
+    "coat": 0,
+    "gloves": "short",
+    "boots": "shoe",
+    "held": "sword",
+    "devil": true,
+    "colors": {
+     "outfit": "#5b2a2a",
+     "trousers": "#2b1d1d",
+     "skin": "#7a5a50",
+     "hair": "#1a1a1a",
+     "boots": "#1a1414",
+     "gloves": "#3a2020"
+    }
+   },
+   "size": 5,
+   "fight": {
+    "preset": "brawler",
+    "health": 5,
+    "tell": 5,
+    "parry": 5,
+    "speed": 5,
+    "damage": 5,
+    "moves": {
+     "swing": true,
+     "slam": false,
+     "throw": false,
+     "charge": false
+    },
+    "tougher": true,
+    "pack": "plain"
+   }
+  },
+  {
+   "id": "c1",
+   "name": "Keeper",
+   "role": "creature",
+   "look": {
+    "hair": "none",
+    "top": "bodysuit",
+    "coat": 0,
+    "gloves": "short",
+    "boots": "shoe",
+    "held": "none",
+    "devil": true,
+    "colors": {
+     "outfit": "#5b2a2a",
+     "trousers": "#2b1d1d",
+     "skin": "#7a5a50",
+     "hair": "#1a1a1a",
+     "boots": "#1a1414",
+     "gloves": "#3a2020"
+    }
+   },
+   "size": 8,
+   "fight": {
+    "preset": "boss",
+    "health": 4,
+    "tell": 5,
+    "parry": 5,
+    "speed": 5,
+    "damage": 5,
+    "moves": {
+     "swing": true,
+     "slam": true,
+     "throw": true,
+     "charge": true
+    },
+    "tougher": true,
+    "pack": "plain"
+   }
+  }
+ ],
+ "levels": [
+  {
+   "id": "l1",
+   "name": "The yard",
+   "size": [
+    24,
+    24
+   ],
+   "sky": true,
+   "light": 6,
+   "floor": "stone",
+   "music": "pulse",
+   "blocks": [
+    [
+     0,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     1,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     2,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     3,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     4,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     5,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     6,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     7,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     8,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     9,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     10,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     11,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     12,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     13,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     14,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     15,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     16,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     17,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     18,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     19,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     20,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     21,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     22,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     1,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     1,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     2,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     2,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     3,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     3,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     4,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     4,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     5,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     5,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     6,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     6,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     7,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     7,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     8,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     8,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     9,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     9,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     10,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     10,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     11,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     11,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     12,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     12,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     13,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     13,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     14,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     14,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     15,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     15,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     16,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     16,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     17,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     17,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     18,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     18,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     19,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     19,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     20,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     20,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     21,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     21,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     22,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     22,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     1,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     2,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     3,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     4,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     5,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     6,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     7,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     8,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     9,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     10,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     11,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     12,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     13,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     14,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     15,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     16,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     17,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     18,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     19,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     20,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     21,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     22,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     12,
+     1,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     2,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     3,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     4,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     5,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     6,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     7,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     8,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     9,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     10,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     12,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     13,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     14,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     15,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     16,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     17,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     18,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     19,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     20,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     21,
+     "brick",
+     0,
+     3
+    ],
+    [
+     12,
+     22,
+     "brick",
+     0,
+     3
+    ],
+    [
+     18,
+     5,
+     "brick",
+     0,
+     3
+    ],
+    [
+     19,
+     5,
+     "brick",
+     0,
+     3
+    ],
+    [
+     21,
+     5,
+     "brick",
+     0,
+     3
+    ],
+    [
+     22,
+     5,
+     "brick",
+     0,
+     3
+    ],
+    [
+     18,
+     1,
+     "brick",
+     0,
+     3
+    ],
+    [
+     18,
+     2,
+     "brick",
+     0,
+     3
+    ],
+    [
+     18,
+     3,
+     "brick",
+     0,
+     3
+    ],
+    [
+     18,
+     4,
+     "brick",
+     0,
+     3
+    ],
+    [
+     18,
+     18,
+     "brick",
+     0,
+     3
+    ],
+    [
+     19,
+     18,
+     "brick",
+     0,
+     3
+    ],
+    [
+     21,
+     18,
+     "brick",
+     0,
+     3
+    ],
+    [
+     22,
+     18,
+     "brick",
+     0,
+     3
+    ],
+    [
+     18,
+     19,
+     "brick",
+     0,
+     3
+    ],
+    [
+     18,
+     20,
+     "brick",
+     0,
+     3
+    ],
+    [
+     18,
+     21,
+     "brick",
+     0,
+     3
+    ],
+    [
+     18,
+     22,
+     "brick",
+     0,
+     3
+    ],
+    [
+     1,
+     19,
+     "brick",
+     2,
+     2.5
+    ],
+    [
+     2,
+     19,
+     "brick",
+     2,
+     2.5
+    ],
+    [
+     3,
+     19,
+     "brick",
+     2,
+     2.5
+    ],
+    [
+     1,
+     20,
+     "brick",
+     2,
+     2.5
+    ],
+    [
+     2,
+     20,
+     "brick",
+     2,
+     2.5
+    ],
+    [
+     3,
+     20,
+     "brick",
+     2,
+     2.5
+    ],
+    [
+     1,
+     21,
+     "brick",
+     2,
+     2.5
+    ],
+    [
+     2,
+     21,
+     "brick",
+     2,
+     2.5
+    ],
+    [
+     3,
+     21,
+     "brick",
+     2,
+     2.5
+    ],
+    [
+     1,
+     22,
+     "brick",
+     2,
+     2.5
+    ],
+    [
+     2,
+     22,
+     "brick",
+     2,
+     2.5
+    ],
+    [
+     3,
+     22,
+     "brick",
+     2,
+     2.5
+    ]
+   ],
+   "parts": [
+    {
+     "id": "start1",
+     "type": "start",
+     "x": 4.5,
+     "y": 12,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.8,
+      0.8,
+      0.1
+     ],
+     "color": "#4cc38a",
+     "props": {}
+    },
+    {
+     "id": "door1",
+     "type": "door",
+     "x": 12.5,
+     "y": 11.5,
+     "z": 0,
+     "turn": 90,
+     "size": [
+      1,
+      0.30000000000000004,
+      2
+     ],
+     "color": "#5d6b7a",
+     "props": {
+      "stayOpen": false,
+      "locked": false,
+      "startsOpen": false
+     }
+    },
+    {
+     "id": "plate1",
+     "type": "plate",
+     "x": 8.5,
+     "y": 5.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      1,
+      1,
+      0.1
+     ],
+     "color": "#9aa7b3",
+     "props": {
+      "who": "anything"
+     }
+    },
+    {
+     "id": "crate1",
+     "type": "crate",
+     "x": 6.5,
+     "y": 5.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.9,
+      0.9,
+      0.9
+     ],
+     "color": "#c9a46a",
+     "props": {
+      "weight": 4,
+      "bounce": 1,
+      "pinned": false,
+      "carry": true
+     }
+    },
+    {
+     "id": "crate2",
+     "type": "crate",
+     "x": 6.5,
+     "y": 21.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.9,
+      0.9,
+      0.9
+     ],
+     "color": "#c9a46a",
+     "props": {
+      "weight": 4,
+      "bounce": 1,
+      "pinned": false,
+      "carry": true
+     }
+    },
+    {
+     "id": "crate3",
+     "type": "crate",
+     "x": 7.5,
+     "y": 21.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.9,
+      0.9,
+      0.9
+     ],
+     "color": "#c9a46a",
+     "props": {
+      "weight": 4,
+      "bounce": 1,
+      "pinned": false,
+      "carry": true
+     }
+    },
+    {
+     "id": "spring1",
+     "type": "spring",
+     "x": 4.5,
+     "y": 20.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      1,
+      1,
+      0.2
+     ],
+     "color": "#4cc38a",
+     "props": {
+      "strength": 6
+     }
+    },
+    {
+     "id": "key1",
+     "type": "key",
+     "x": 2.5,
+     "y": 21.5,
+     "z": 2.5,
+     "turn": 0,
+     "size": [
+      0.4,
+      0.4,
+      0.4
+     ],
+     "color": "#ffcc33",
+     "props": {}
+    },
+    {
+     "id": "creature1",
+     "type": "creature",
+     "x": 16.5,
+     "y": 8.5,
+     "z": 0,
+     "turn": 180,
+     "size": [
+      0.8,
+      0.8,
+      1.8
+     ],
+     "color": "#ff4d4f",
+     "props": {
+      "character": "grunt",
+      "waits": false
+     }
+    },
+    {
+     "id": "creature2",
+     "type": "creature",
+     "x": 17.5,
+     "y": 15.5,
+     "z": 0,
+     "turn": 180,
+     "size": [
+      0.8,
+      0.8,
+      1.8
+     ],
+     "color": "#ff4d4f",
+     "props": {
+      "character": "grunt",
+      "waits": false
+     }
+    },
+    {
+     "id": "seesaw1",
+     "type": "seesaw",
+     "x": 15.5,
+     "y": 12.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      4,
+      0.8,
+      0.2
+     ],
+     "color": "#8fb3c9",
+     "props": {
+      "weight": 3
+     }
+    },
+    {
+     "id": "barrel1",
+     "type": "barrel",
+     "x": 20.5,
+     "y": 7.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.75,
+      0.75,
+      1
+     ],
+     "color": "#d0402c",
+     "props": {
+      "weight": 4,
+      "blast": 5,
+      "explodes": true,
+      "carry": true
+     }
+    },
+    {
+     "id": "breakable1",
+     "type": "breakable",
+     "x": 20.5,
+     "y": 5.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      1,
+      1,
+      2
+     ],
+     "color": "#8a7f73",
+     "props": {
+      "hits": 0
+     }
+    },
+    {
+     "id": "gem1",
+     "type": "gem",
+     "x": 19.5,
+     "y": 2.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.35000000000000003,
+      0.35000000000000003,
+      0.35000000000000003
+     ],
+     "color": "#7fd4ff",
+     "props": {
+      "value": 10
+     }
+    },
+    {
+     "id": "gem2",
+     "type": "gem",
+     "x": 20.5,
+     "y": 3.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.35000000000000003,
+      0.35000000000000003,
+      0.35000000000000003
+     ],
+     "color": "#7fd4ff",
+     "props": {
+      "value": 10
+     }
+    },
+    {
+     "id": "gem3",
+     "type": "gem",
+     "x": 21.5,
+     "y": 2.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.35000000000000003,
+      0.35000000000000003,
+      0.35000000000000003
+     ],
+     "color": "#7fd4ff",
+     "props": {
+      "value": 10
+     }
+    },
+    {
+     "id": "door2",
+     "type": "door",
+     "x": 20.5,
+     "y": 18.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      1,
+      0.30000000000000004,
+      2
+     ],
+     "color": "#5d6b7a",
+     "props": {
+      "stayOpen": false,
+      "locked": true,
+      "startsOpen": false
+     }
+    },
+    {
+     "id": "exit1",
+     "type": "exit",
+     "x": 20.5,
+     "y": 21.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      1,
+      1,
+      0.1
+     ],
+     "color": "#4cc38a",
+     "props": {
+      "everyone": false
+     }
+    },
+    {
+     "id": "zone1",
+     "type": "zone",
+     "x": 4.5,
+     "y": 12,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      3,
+      3,
+      2
+     ],
+     "color": "#7fd4ff",
+     "props": {
+      "who": "players"
+     }
+    },
+    {
+     "id": "message1",
+     "type": "message",
+     "x": 2.5,
+     "y": 12,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "text": "The spring takes you up to the key. A crate on the plate opens the door.",
+      "seconds": 6
+     }
+    }
+   ],
+   "wires": [
+    {
+     "from": "plate1",
+     "to": "door1"
+    },
+    {
+     "from": "zone1",
+     "to": "message1"
+    }
+   ]
+  },
+  {
+   "id": "l2",
+   "name": "The vault",
+   "size": [
+    24,
+    24
+   ],
+   "sky": false,
+   "light": 3,
+   "floor": "stone",
+   "music": "chase",
+   "blocks": [
+    [
+     0,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     1,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     2,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     3,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     4,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     5,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     6,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     7,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     8,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     9,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     10,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     11,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     12,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     13,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     14,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     15,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     16,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     17,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     18,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     19,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     20,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     21,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     22,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     1,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     1,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     2,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     2,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     3,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     3,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     4,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     4,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     5,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     5,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     6,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     6,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     7,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     7,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     8,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     8,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     9,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     9,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     10,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     10,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     11,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     11,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     12,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     12,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     13,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     13,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     14,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     14,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     15,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     15,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     16,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     16,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     17,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     17,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     18,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     18,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     19,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     19,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     20,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     20,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     21,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     21,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     22,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     22,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     1,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     2,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     3,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     4,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     5,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     6,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     7,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     8,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     9,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     10,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     11,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     12,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     13,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     14,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     15,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     16,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     17,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     18,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     19,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     20,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     21,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     22,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     8,
+     7,
+     "metal",
+     0,
+     3
+    ],
+    [
+     9,
+     7,
+     "metal",
+     0,
+     3
+    ],
+    [
+     8,
+     8,
+     "metal",
+     0,
+     3
+    ],
+    [
+     9,
+     8,
+     "metal",
+     0,
+     3
+    ],
+    [
+     15,
+     7,
+     "metal",
+     0,
+     3
+    ],
+    [
+     16,
+     7,
+     "metal",
+     0,
+     3
+    ],
+    [
+     15,
+     8,
+     "metal",
+     0,
+     3
+    ],
+    [
+     16,
+     8,
+     "metal",
+     0,
+     3
+    ],
+    [
+     8,
+     16,
+     "metal",
+     0,
+     3
+    ],
+    [
+     9,
+     16,
+     "metal",
+     0,
+     3
+    ],
+    [
+     8,
+     17,
+     "metal",
+     0,
+     3
+    ],
+    [
+     9,
+     17,
+     "metal",
+     0,
+     3
+    ],
+    [
+     15,
+     16,
+     "metal",
+     0,
+     3
+    ],
+    [
+     16,
+     16,
+     "metal",
+     0,
+     3
+    ],
+    [
+     15,
+     17,
+     "metal",
+     0,
+     3
+    ],
+    [
+     16,
+     17,
+     "metal",
+     0,
+     3
+    ]
+   ],
+   "parts": [
+    {
+     "id": "start1",
+     "type": "start",
+     "x": 4.5,
+     "y": 12,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.8,
+      0.8,
+      0.1
+     ],
+     "color": "#4cc38a",
+     "props": {}
+    },
+    {
+     "id": "creature1",
+     "type": "creature",
+     "x": 18.5,
+     "y": 12.5,
+     "z": 0,
+     "turn": 180,
+     "size": [
+      0.8,
+      0.8,
+      1.8
+     ],
+     "color": "#ff4d4f",
+     "props": {
+      "character": "c1",
+      "waits": false
+     }
+    },
+    {
+     "id": "barrel1",
+     "type": "barrel",
+     "x": 12.5,
+     "y": 5.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.75,
+      0.75,
+      1
+     ],
+     "color": "#d0402c",
+     "props": {
+      "weight": 4,
+      "blast": 5,
+      "explodes": true,
+      "carry": true
+     }
+    },
+    {
+     "id": "barrel2",
+     "type": "barrel",
+     "x": 12.5,
+     "y": 18.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.75,
+      0.75,
+      1
+     ],
+     "color": "#d0402c",
+     "props": {
+      "weight": 4,
+      "blast": 5,
+      "explodes": true,
+      "carry": true
+     }
+    },
+    {
+     "id": "crate1",
+     "type": "crate",
+     "x": 11.5,
+     "y": 11.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.9,
+      0.9,
+      0.9
+     ],
+     "color": "#c9a46a",
+     "props": {
+      "weight": 4,
+      "bounce": 1,
+      "pinned": false,
+      "carry": true
+     }
+    },
+    {
+     "id": "crate2",
+     "type": "crate",
+     "x": 11.5,
+     "y": 12.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.9,
+      0.9,
+      0.9
+     ],
+     "color": "#c9a46a",
+     "props": {
+      "weight": 4,
+      "bounce": 1,
+      "pinned": false,
+      "carry": true
+     }
+    },
+    {
+     "id": "health1",
+     "type": "health",
+     "x": 4.5,
+     "y": 4.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.35000000000000003
+     ],
+     "color": "#f2f2f2",
+     "props": {
+      "amount": 50
+     }
+    },
+    {
+     "id": "health2",
+     "type": "health",
+     "x": 4.5,
+     "y": 19.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.35000000000000003
+     ],
+     "color": "#f2f2f2",
+     "props": {
+      "amount": 50
+     }
+    },
+    {
+     "id": "down1",
+     "type": "down",
+     "x": 21.5,
+     "y": 21.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#ff4d4f",
+     "props": {
+      "which": "creature1"
+     }
+    },
+    {
+     "id": "win1",
+     "type": "win",
+     "x": 22.5,
+     "y": 21.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#4cc38a",
+     "props": {}
+    },
+    {
+     "id": "lamp1",
+     "type": "lamp",
+     "x": 12.5,
+     "y": 12.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.30000000000000004,
+      0.30000000000000004,
+      0.30000000000000004
+     ],
+     "color": "#ffd9a0",
+     "props": {
+      "brightness": 6,
+      "reach": 5
+     }
+    },
+    {
+     "id": "zone1",
+     "type": "zone",
+     "x": 4.5,
+     "y": 12,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      3,
+      3,
+      2
+     ],
+     "color": "#7fd4ff",
+     "props": {
+      "who": "players"
+     }
+    },
+    {
+     "id": "message1",
+     "type": "message",
+     "x": 2.5,
+     "y": 12,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "text": "The Keeper. Right click parries a swing; step back from a slam.",
+      "seconds": 6
+     }
+    }
+   ],
+   "wires": [
+    {
+     "from": "down1",
+     "to": "win1"
+    },
+    {
+     "from": "zone1",
+     "to": "message1"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+# Cloudflare Pages headers for the maker site.
+# Rapier's physics is WebAssembly built from bytes in its script
+# ('wasm-unsafe-eval'); co-op rooms are the maker-rooms Worker.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' wss://maker-rooms.mrgedune.workers.dev; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  X-Robots-Tag: noindex, nofollow
+
+/vendor/*
+  Cache-Control: public, max-age=86400

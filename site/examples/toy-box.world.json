@@ -1,0 +1,1841 @@
+{
+ "format": "rabbit-house-maker",
+ "version": 1,
+ "name": "Toy box",
+ "screens": {
+  "title": "Toy box",
+  "subtitle": "Hit the three targets. The toys help.",
+  "win": "All three down.",
+  "lose": "Game over"
+ },
+ "coop": {
+  "players": 4,
+  "dropIn": true,
+  "revive": true,
+  "tougher": true,
+  "friendlyFire": false
+ },
+ "materials": [
+  {
+   "id": "stone",
+   "name": "Stone",
+   "glyph": "█",
+   "color": "#8a8f98",
+   "glow": false
+  },
+  {
+   "id": "brick",
+   "name": "Brick",
+   "glyph": "▓",
+   "color": "#a0543f",
+   "glow": false
+  },
+  {
+   "id": "metal",
+   "name": "Metal",
+   "glyph": "▒",
+   "color": "#7d8fa1",
+   "glow": false
+  },
+  {
+   "id": "wood",
+   "name": "Wood",
+   "glyph": "#",
+   "color": "#9c6b3e",
+   "glow": false
+  },
+  {
+   "id": "grass",
+   "name": "Grass",
+   "glyph": "\"",
+   "color": "#4f9a4a",
+   "glow": false
+  },
+  {
+   "id": "sand",
+   "name": "Sand",
+   "glyph": "░",
+   "color": "#d8c38f",
+   "glow": false
+  },
+  {
+   "id": "glass",
+   "name": "Glass",
+   "glyph": "░",
+   "color": "#7fb6c9",
+   "glow": false
+  },
+  {
+   "id": "dark",
+   "name": "Dark",
+   "glyph": "█",
+   "color": "#2b2f38",
+   "glow": false
+  },
+  {
+   "id": "glow",
+   "name": "Glow",
+   "glyph": "█",
+   "color": "#ff4d4f",
+   "glow": true
+  },
+  {
+   "id": "white",
+   "name": "White",
+   "glyph": "█",
+   "color": "#e8e6e3",
+   "glow": false
+  }
+ ],
+ "characters": [
+  {
+   "id": "player",
+   "name": "Player look",
+   "role": "player",
+   "look": {
+    "hair": "short",
+    "top": "jacket",
+    "coat": 0,
+    "gloves": "short",
+    "boots": "shoe",
+    "held": "sword",
+    "devil": false,
+    "colors": {
+     "outfit": "#3d6fa8",
+     "trousers": "#2b2f38",
+     "skin": "#d9a77c",
+     "hair": "#3a2a1e",
+     "boots": "#1e2128",
+     "gloves": "#2b2f38"
+    }
+   },
+   "size": 5,
+   "fight": {
+    "preset": "brawler",
+    "health": 5,
+    "tell": 5,
+    "parry": 5,
+    "speed": 5,
+    "damage": 5,
+    "moves": {
+     "swing": true,
+     "slam": false,
+     "throw": false,
+     "charge": false
+    },
+    "tougher": true,
+    "pack": "plain"
+   }
+  }
+ ],
+ "levels": [
+  {
+   "id": "l1",
+   "name": "The toy box",
+   "size": [
+    24,
+    24
+   ],
+   "sky": true,
+   "light": 7,
+   "floor": "grass",
+   "music": "calm",
+   "blocks": [
+    [
+     0,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     1,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     2,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     3,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     4,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     5,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     6,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     7,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     8,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     9,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     10,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     11,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     12,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     13,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     14,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     15,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     16,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     17,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     18,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     19,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     20,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     21,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     22,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     0,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     1,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     2,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     3,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     4,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     5,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     6,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     7,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     8,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     9,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     10,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     11,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     12,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     13,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     14,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     15,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     16,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     17,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     18,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     19,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     20,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     21,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     22,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     23,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     1,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     2,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     3,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     4,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     5,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     6,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     7,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     8,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     9,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     10,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     11,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     12,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     13,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     14,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     15,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     16,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     17,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     18,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     19,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     20,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     21,
+     "brick",
+     0,
+     2
+    ],
+    [
+     0,
+     22,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     1,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     2,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     3,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     4,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     5,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     6,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     7,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     8,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     9,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     10,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     11,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     12,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     13,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     14,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     15,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     16,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     17,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     18,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     19,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     20,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     21,
+     "brick",
+     0,
+     2
+    ],
+    [
+     23,
+     22,
+     "brick",
+     0,
+     2
+    ],
+    [
+     8,
+     15,
+     "metal",
+     0,
+     0.75
+    ],
+    [
+     1,
+     18,
+     "stone",
+     0,
+     2.5
+    ],
+    [
+     1,
+     19,
+     "stone",
+     0,
+     2.5
+    ],
+    [
+     1,
+     20,
+     "stone",
+     0,
+     2.5
+    ],
+    [
+     1,
+     21,
+     "stone",
+     0,
+     2.5
+    ],
+    [
+     1,
+     22,
+     "stone",
+     0,
+     2.5
+    ],
+    [
+     2,
+     18,
+     "stone",
+     0,
+     2.5
+    ],
+    [
+     2,
+     19,
+     "stone",
+     0,
+     2.5
+    ],
+    [
+     2,
+     20,
+     "stone",
+     0,
+     2.5
+    ],
+    [
+     2,
+     21,
+     "stone",
+     0,
+     2.5
+    ],
+    [
+     2,
+     22,
+     "stone",
+     0,
+     2.5
+    ],
+    [
+     3,
+     18,
+     "stone",
+     0,
+     2.5
+    ],
+    [
+     3,
+     19,
+     "stone",
+     0,
+     2.5
+    ],
+    [
+     3,
+     20,
+     "stone",
+     0,
+     2.5
+    ],
+    [
+     3,
+     21,
+     "stone",
+     0,
+     2.5
+    ],
+    [
+     3,
+     22,
+     "stone",
+     0,
+     2.5
+    ],
+    [
+     16,
+     16,
+     "stone",
+     0,
+     2
+    ],
+    [
+     17,
+     16,
+     "stone",
+     0,
+     2
+    ],
+    [
+     18,
+     16,
+     "stone",
+     0,
+     2
+    ],
+    [
+     20,
+     16,
+     "stone",
+     0,
+     2
+    ],
+    [
+     21,
+     16,
+     "stone",
+     0,
+     2
+    ],
+    [
+     22,
+     16,
+     "stone",
+     0,
+     2
+    ],
+    [
+     16,
+     17,
+     "stone",
+     0,
+     2
+    ],
+    [
+     16,
+     18,
+     "stone",
+     0,
+     2
+    ],
+    [
+     16,
+     19,
+     "stone",
+     0,
+     2
+    ],
+    [
+     16,
+     20,
+     "stone",
+     0,
+     2
+    ],
+    [
+     16,
+     21,
+     "stone",
+     0,
+     2
+    ],
+    [
+     16,
+     22,
+     "stone",
+     0,
+     2
+    ],
+    [
+     15,
+     6,
+     "glass",
+     0,
+     2.25
+    ],
+    [
+     16,
+     6,
+     "glass",
+     0,
+     2.25
+    ],
+    [
+     17,
+     6,
+     "glass",
+     0,
+     2.25
+    ],
+    [
+     18,
+     6,
+     "glass",
+     0,
+     2.25
+    ],
+    [
+     19,
+     6,
+     "glass",
+     0,
+     2.25
+    ],
+    [
+     20,
+     6,
+     "glass",
+     0,
+     2.25
+    ],
+    [
+     21,
+     6,
+     "glass",
+     0,
+     2.25
+    ],
+    [
+     22,
+     6,
+     "glass",
+     0,
+     2.25
+    ],
+    [
+     15,
+     1,
+     "glass",
+     0,
+     2.25
+    ],
+    [
+     15,
+     2,
+     "glass",
+     0,
+     2.25
+    ],
+    [
+     15,
+     3,
+     "glass",
+     0,
+     2.25
+    ],
+    [
+     15,
+     4,
+     "glass",
+     0,
+     2.25
+    ],
+    [
+     15,
+     5,
+     "glass",
+     0,
+     2.25
+    ]
+   ],
+   "parts": [
+    {
+     "id": "start1",
+     "type": "start",
+     "x": 3.5,
+     "y": 3.5,
+     "z": 0,
+     "turn": 45,
+     "size": [
+      0.8,
+      0.8,
+      0.1
+     ],
+     "color": "#4cc38a",
+     "props": {}
+    },
+    {
+     "id": "crate2",
+     "type": "crate",
+     "x": 6.5,
+     "y": 9.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.9,
+      0.9,
+      0.9
+     ],
+     "color": "#c9a46a",
+     "props": {
+      "weight": 4,
+      "bounce": 1,
+      "pinned": false,
+      "carry": true
+     }
+    },
+    {
+     "id": "crate3",
+     "type": "crate",
+     "x": 7.5,
+     "y": 9.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.9,
+      0.9,
+      0.9
+     ],
+     "color": "#c9a46a",
+     "props": {
+      "weight": 4,
+      "bounce": 1,
+      "pinned": false,
+      "carry": true
+     }
+    },
+    {
+     "id": "crate4",
+     "type": "crate",
+     "x": 8.5,
+     "y": 9.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.9,
+      0.9,
+      0.9
+     ],
+     "color": "#c9a46a",
+     "props": {
+      "weight": 4,
+      "bounce": 1,
+      "pinned": false,
+      "carry": true
+     }
+    },
+    {
+     "id": "crate5",
+     "type": "crate",
+     "x": 7,
+     "y": 9.5,
+     "z": 0.875,
+     "turn": 0,
+     "size": [
+      0.9,
+      0.9,
+      0.9
+     ],
+     "color": "#c9a46a",
+     "props": {
+      "weight": 4,
+      "bounce": 1,
+      "pinned": false,
+      "carry": true
+     }
+    },
+    {
+     "id": "crate6",
+     "type": "crate",
+     "x": 8,
+     "y": 9.5,
+     "z": 0.875,
+     "turn": 0,
+     "size": [
+      0.9,
+      0.9,
+      0.9
+     ],
+     "color": "#c9a46a",
+     "props": {
+      "weight": 4,
+      "bounce": 1,
+      "pinned": false,
+      "carry": true
+     }
+    },
+    {
+     "id": "crate7",
+     "type": "crate",
+     "x": 7.5,
+     "y": 9.5,
+     "z": 1.75,
+     "turn": 0,
+     "size": [
+      0.9,
+      0.9,
+      0.9
+     ],
+     "color": "#c9a46a",
+     "props": {
+      "weight": 4,
+      "bounce": 1,
+      "pinned": false,
+      "carry": true
+     }
+    },
+    {
+     "id": "ball8",
+     "type": "ball",
+     "x": 4.5,
+     "y": 7.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.7000000000000001,
+      0.7000000000000001,
+      0.7000000000000001
+     ],
+     "color": "#e05a4f",
+     "props": {
+      "weight": 2,
+      "bounce": 6,
+      "carry": true
+     }
+    },
+    {
+     "id": "ball9",
+     "type": "ball",
+     "x": 5.5,
+     "y": 8.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.7000000000000001,
+      0.7000000000000001,
+      0.7000000000000001
+     ],
+     "color": "#e05a4f",
+     "props": {
+      "weight": 2,
+      "bounce": 6,
+      "carry": true
+     }
+    },
+    {
+     "id": "ball10",
+     "type": "ball",
+     "x": 10.5,
+     "y": 3.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.7000000000000001,
+      0.7000000000000001,
+      0.7000000000000001
+     ],
+     "color": "#e05a4f",
+     "props": {
+      "weight": 2,
+      "bounce": 6,
+      "carry": true
+     }
+    },
+    {
+     "id": "seesaw11",
+     "type": "seesaw",
+     "x": 12.5,
+     "y": 9.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      4,
+      0.8,
+      0.2
+     ],
+     "color": "#8fb3c9",
+     "props": {
+      "weight": 3
+     }
+    },
+    {
+     "id": "launcher12",
+     "type": "launcher",
+     "x": 11,
+     "y": 15,
+     "z": 0,
+     "turn": 90,
+     "size": [
+      2,
+      2,
+      1
+     ],
+     "color": "#4cc38a",
+     "props": {
+      "strength": 6,
+      "lift": 7
+     }
+    },
+    {
+     "id": "ball13",
+     "type": "ball",
+     "x": 10.5,
+     "y": 14.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.7000000000000001,
+      0.7000000000000001,
+      0.7000000000000001
+     ],
+     "color": "#e05a4f",
+     "props": {
+      "weight": 2,
+      "bounce": 6,
+      "carry": true
+     }
+    },
+    {
+     "id": "ball14",
+     "type": "ball",
+     "x": 11.5,
+     "y": 14.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.7000000000000001,
+      0.7000000000000001,
+      0.7000000000000001
+     ],
+     "color": "#e05a4f",
+     "props": {
+      "weight": 2,
+      "bounce": 6,
+      "carry": true
+     }
+    },
+    {
+     "id": "ball15",
+     "type": "ball",
+     "x": 10.5,
+     "y": 15.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.7000000000000001,
+      0.7000000000000001,
+      0.7000000000000001
+     ],
+     "color": "#e05a4f",
+     "props": {
+      "weight": 2,
+      "bounce": 6,
+      "carry": true
+     }
+    },
+    {
+     "id": "ball16",
+     "type": "ball",
+     "x": 11.5,
+     "y": 15.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.7000000000000001,
+      0.7000000000000001,
+      0.7000000000000001
+     ],
+     "color": "#e05a4f",
+     "props": {
+      "weight": 2,
+      "bounce": 6,
+      "carry": true
+     }
+    },
+    {
+     "id": "button17",
+     "type": "button",
+     "x": 8.5,
+     "y": 15.5,
+     "z": 0.75,
+     "turn": 0,
+     "size": [
+      0.35000000000000003,
+      0.35000000000000003,
+      0.35000000000000003
+     ],
+     "color": "#ff4d4f",
+     "props": {
+      "hold": 0.5
+     }
+    },
+    {
+     "id": "spring18",
+     "type": "spring",
+     "x": 4.5,
+     "y": 20.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      1,
+      1,
+      0.2
+     ],
+     "color": "#4cc38a",
+     "props": {
+      "strength": 6
+     }
+    },
+    {
+     "id": "target19",
+     "type": "target",
+     "x": 2.5,
+     "y": 20.5,
+     "z": 2.75,
+     "turn": 90,
+     "size": [
+      0.8,
+      0.2,
+      0.8
+     ],
+     "color": "#ffd166",
+     "props": {}
+    },
+    {
+     "id": "breakable20",
+     "type": "breakable",
+     "x": 19.5,
+     "y": 16.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      1,
+      1,
+      2
+     ],
+     "color": "#8a7f73",
+     "props": {
+      "hits": 0
+     }
+    },
+    {
+     "id": "target21",
+     "type": "target",
+     "x": 19.5,
+     "y": 20.5,
+     "z": 0.375,
+     "turn": 0,
+     "size": [
+      0.8,
+      0.2,
+      0.8
+     ],
+     "color": "#ffd166",
+     "props": {}
+    },
+    {
+     "id": "barrel22",
+     "type": "barrel",
+     "x": 19.5,
+     "y": 10.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.75,
+      0.75,
+      1
+     ],
+     "color": "#d0402c",
+     "props": {
+      "weight": 4,
+      "blast": 5,
+      "explodes": true,
+      "carry": true
+     }
+    },
+    {
+     "id": "barrel23",
+     "type": "barrel",
+     "x": 21.5,
+     "y": 10.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.75,
+      0.75,
+      1
+     ],
+     "color": "#d0402c",
+     "props": {
+      "weight": 4,
+      "blast": 5,
+      "explodes": true,
+      "carry": true
+     }
+    },
+    {
+     "id": "target24",
+     "type": "target",
+     "x": 18.5,
+     "y": 1.25,
+     "z": 1,
+     "turn": 0,
+     "size": [
+      0.8,
+      0.2,
+      0.8
+     ],
+     "color": "#ffd166",
+     "props": {}
+    },
+    {
+     "id": "ball25",
+     "type": "ball",
+     "x": 17.5,
+     "y": 8.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.7000000000000001,
+      0.7000000000000001,
+      0.7000000000000001
+     ],
+     "color": "#e05a4f",
+     "props": {
+      "weight": 2,
+      "bounce": 6,
+      "carry": true
+     }
+    },
+    {
+     "id": "ball26",
+     "type": "ball",
+     "x": 19.5,
+     "y": 8.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.7000000000000001,
+      0.7000000000000001,
+      0.7000000000000001
+     ],
+     "color": "#e05a4f",
+     "props": {
+      "weight": 2,
+      "bounce": 6,
+      "carry": true
+     }
+    },
+    {
+     "id": "and27",
+     "type": "and",
+     "x": 6.5,
+     "y": 1.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {}
+    },
+    {
+     "id": "counter28",
+     "type": "counter",
+     "x": 2.5,
+     "y": 17.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "target": 1
+     }
+    },
+    {
+     "id": "lamp29",
+     "type": "lamp",
+     "x": 2.5,
+     "y": 20.5,
+     "z": 4,
+     "turn": 0,
+     "size": [
+      0.30000000000000004,
+      0.30000000000000004,
+      0.30000000000000004
+     ],
+     "color": "#ffd9a0",
+     "props": {
+      "brightness": 7,
+      "reach": 4
+     }
+    },
+    {
+     "id": "counter30",
+     "type": "counter",
+     "x": 18.5,
+     "y": 22.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "target": 1
+     }
+    },
+    {
+     "id": "lamp31",
+     "type": "lamp",
+     "x": 19.5,
+     "y": 20.5,
+     "z": 1.75,
+     "turn": 0,
+     "size": [
+      0.30000000000000004,
+      0.30000000000000004,
+      0.30000000000000004
+     ],
+     "color": "#ffd9a0",
+     "props": {
+      "brightness": 7,
+      "reach": 4
+     }
+    },
+    {
+     "id": "counter32",
+     "type": "counter",
+     "x": 17.5,
+     "y": 2.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "target": 1
+     }
+    },
+    {
+     "id": "lamp33",
+     "type": "lamp",
+     "x": 18.5,
+     "y": 1.625,
+     "z": 2.625,
+     "turn": 0,
+     "size": [
+      0.30000000000000004,
+      0.30000000000000004,
+      0.30000000000000004
+     ],
+     "color": "#ffd9a0",
+     "props": {
+      "brightness": 7,
+      "reach": 4
+     }
+    },
+    {
+     "id": "message34",
+     "type": "message",
+     "x": 7.5,
+     "y": 1.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "text": "All three targets hit.",
+      "seconds": 3
+     }
+    },
+    {
+     "id": "sound35",
+     "type": "sound",
+     "x": 8.5,
+     "y": 1.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "sound": "fanfare"
+     }
+    },
+    {
+     "id": "delay36",
+     "type": "delay",
+     "x": 9.5,
+     "y": 1.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "seconds": 2
+     }
+    },
+    {
+     "id": "win37",
+     "type": "win",
+     "x": 10.5,
+     "y": 1.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#4cc38a",
+     "props": {}
+    },
+    {
+     "id": "zone38",
+     "type": "zone",
+     "x": 3.5,
+     "y": 3.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      3,
+      3,
+      2
+     ],
+     "color": "#7fd4ff",
+     "props": {
+      "who": "players"
+     }
+    },
+    {
+     "id": "message39",
+     "type": "message",
+     "x": 3.5,
+     "y": 1.5,
+     "z": 0,
+     "turn": 0,
+     "size": [
+      0.5,
+      0.5,
+      0.5
+     ],
+     "color": "#a3a7b0",
+     "props": {
+      "text": "Hit the three targets. Throw, blast or bounce your way there.",
+      "seconds": 6
+     }
+    }
+   ],
+   "wires": [
+    {
+     "from": "button17",
+     "to": "launcher12"
+    },
+    {
+     "from": "target19",
+     "to": "counter28"
+    },
+    {
+     "from": "counter28",
+     "to": "and27"
+    },
+    {
+     "from": "counter28",
+     "to": "lamp29"
+    },
+    {
+     "from": "target21",
+     "to": "counter30"
+    },
+    {
+     "from": "counter30",
+     "to": "and27"
+    },
+    {
+     "from": "counter30",
+     "to": "lamp31"
+    },
+    {
+     "from": "target24",
+     "to": "counter32"
+    },
+    {
+     "from": "counter32",
+     "to": "and27"
+    },
+    {
+     "from": "counter32",
+     "to": "lamp33"
+    },
+    {
+     "from": "and27",
+     "to": "message34"
+    },
+    {
+     "from": "and27",
+     "to": "sound35"
+    },
+    {
+     "from": "and27",
+     "to": "delay36"
+    },
+    {
+     "from": "delay36",
+     "to": "win37"
+    },
+    {
+     "from": "zone38",
+     "to": "message39"
+    }
+   ]
+  }
+ ]
+}
